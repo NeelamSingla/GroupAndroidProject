@@ -1,8 +1,11 @@
 package com.jailbreackers.soulhunter
 
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
+import android.location.LocationManager
+
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.concurrent.ThreadPoolExecutor
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -26,7 +30,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_maps)
 
 
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
@@ -35,13 +38,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         checkPermision()
     }
-    val accessLocation=123
-    fun checkPermision(){
+
+    val accessLocation = 123
 
 
-        if(Build.VERSION.SDK_INT>=23){
-            if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-                requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),accessLocation)
+    fun checkPermision() {
+
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), accessLocation)
             }
         }
 
@@ -50,26 +56,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-       when(requestCode){
-           accessLocation->{
-               if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                   getUserLoaction()
-               }
-               else {
-                   Toast.makeText(this,"Location permision is denied",Toast.LENGTH_LONG).show()
-
-               }
-           }
+        when (requestCode) {
+            accessLocation -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getUserLoaction()
+                } else {
+                    Toast.makeText(this, "Location permision is denied", Toast.LENGTH_LONG).show()
+                }
+            }
 
 
-       }
+        }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    fun getUserLoaction(){
-        Toast.makeText(this,"Location is accessed",Toast.LENGTH_LONG).show()
-
+    fun getUserLoaction() {
+        Toast.makeText(this, "Location is accessed", Toast.LENGTH_LONG).show()
+        val myLocation = MyLocationListener()
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3, 5f, myLocation)
+        val myThread = MyThread()
+        myThread.start()
     }
 
     /**
@@ -84,19 +92,74 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(
-                MarkerOptions()
-                        .position(sydney)
-                        .title("Mohamad")
-                        .snippet("Get the souls")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.vampire_icon))
-
-        )
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,14f ))
     }
 
+    var myLocation: Location? = null
 
+    inner class MyLocationListener : LocationListener {
+        constructor() {
+            myLocation = Location("me")
+            myLocation!!.longitude = 0.0
+            myLocation!!.latitude = 0.0
+
+        }
+
+        override fun onLocationChanged(location: Location?) {
+            myLocation = location
+        }
+
+        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+        }
+
+        override fun onProviderEnabled(provider: String?) {
+        }
+
+        override fun onProviderDisabled(provider: String?) {
+        }
     }
+
+    var oldLocation: Location? = null
+
+    inner class MyThread : Thread {
+        constructor() : super() {
+            oldLocation = Location("oldLocation")
+            oldLocation!!.latitude = 59.339243
+            oldLocation!!.longitude = 18.059742
+        }
+
+        override fun run() {
+            while (true) {
+                try {
+                    if (oldLocation?.distanceTo(myLocation) == 0f) {
+                        continue
+                    }
+                    oldLocation = myLocation
+
+                    runOnUiThread {
+                        mMap!!.clear()
+
+                        // Add a marker in Sydney and move the camera
+                        val sydney = LatLng(myLocation!!.latitude, myLocation!!.longitude)
+                        mMap.addMarker(
+                                MarkerOptions()
+                                        .position(sydney)
+                                        .title("Mohamad")
+                                        .snippet("Get the souls")
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.vampire_icon))
+
+                        )
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 14f))
+                    }
+
+
+                    Thread.sleep(5000)
+                } catch (ex: Exception) {
+                }
+            }
+        }
+    }
+
 }
+
+
+
