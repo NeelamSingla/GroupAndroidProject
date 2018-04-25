@@ -89,7 +89,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(
                 MarkerOptions()
                         .position(sydney)
-                        .title("Mohamad")
+                        .title("Chaitali")
                         .snippet("Get the souls")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.vampire_icon))
 
