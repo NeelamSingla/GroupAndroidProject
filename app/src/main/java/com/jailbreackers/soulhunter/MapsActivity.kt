@@ -2,13 +2,12 @@ package com.jailbreackers.soulhunter
 
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationListener
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,6 +15,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -34,6 +34,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         checkPermision()
+        locationOfCoin()
     }
     val accessLocation=123
     fun checkPermision(){
@@ -98,5 +99,58 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
+    // calculate coordinates for coin
+    fun locationOfCoin(): Location{
+
+        // fake data
+        val myLocation:Location = Location("me")
+        myLocation.latitude = 0.0
+        myLocation.longitude = 0.0
+
+
+
+        //core of the function
+        var latitude: Double = myLocation.latitude
+        var longitude: Double = myLocation.longitude
+
+        val latitudeRange2km: Double = 0.0076
+        val longituteRange2km: Double = 0.0182
+
+
+        val random = Random()
+        val randomLatitude: Double = random.nextDouble() * latitudeRange2km
+        val randomLongitude: Double = random.nextDouble() * longituteRange2km
+
+        if(random.nextInt(1) == 0){
+            latitude += randomLatitude
+            Log.v("latitute", "0")
+        } else{
+            latitude -= randomLatitude
+            Log.v("latitute", "1")
+        }
+
+        if(random.nextInt(1) == 0){
+            longitude += randomLongitude
+            Log.v("longitute", "0")
+        }else{
+            longitude -= randomLongitude
+            Log.v("longitute", "1")
+
+        }
+
+
+
+
+
+        val locationOfCoin: Location  = Location("coin")
+        locationOfCoin.latitude = latitude
+        locationOfCoin.longitude = longitude
+
+
+
+        return locationOfCoin
     }
+
+
 }
+
