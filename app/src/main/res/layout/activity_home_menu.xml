@@ -42,7 +42,7 @@
         app:srcCompat="@drawable/vampire_icon" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_help"
+        android:id="@+id/fab_helpbutton"
         android:layout_width="132dp"
         android:layout_height="133dp"
         android:layout_marginBottom="24dp"
