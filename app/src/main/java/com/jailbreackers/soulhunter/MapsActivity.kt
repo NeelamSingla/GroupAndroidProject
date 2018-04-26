@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.Bitmap
 
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
@@ -153,6 +155,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                     runOnUiThread {
                         mMap!!.clear()
+                        //changing map marker icon size
+                        val height = 130
+                        val width = 130
+                        val bitMapDraw = resources.getDrawable(R.drawable.vampire_icon) as BitmapDrawable
+                        val b = bitMapDraw.bitmap
+                        val smallMarker = Bitmap.createScaledBitmap(b, width, height, false)
 
                         // Add a marker in Sydney and move the camera
                         val sydney = LatLng(myLocation!!.latitude, myLocation!!.longitude)
@@ -161,7 +169,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                         .position(sydney)
                                         .title("Play")
                                         .snippet("Get the souls")
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.vampire_icon))
+                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
 
                         )
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 14f))
