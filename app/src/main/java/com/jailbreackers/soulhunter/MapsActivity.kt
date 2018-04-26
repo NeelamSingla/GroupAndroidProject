@@ -94,6 +94,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+
+
+        // Add a marker in Sydney and move the camera
+        val sydney = LatLng(-34.0, 151.0)
+        mMap.addMarker(
+                MarkerOptions()
+                        .position(sydney)
+                        .title("Chaitali")
+                        .snippet("Get the souls")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.vampire_icon))
+
+        )
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,14f ))
+
     }
 
     var myLocation: Location? = null
