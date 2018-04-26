@@ -24,8 +24,4 @@ class HomeMenuActivity : AppCompatActivity() {
         }
     }
 
-
-
-
-
 }
