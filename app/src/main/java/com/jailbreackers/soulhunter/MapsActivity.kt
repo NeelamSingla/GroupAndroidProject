@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -99,11 +98,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-    // calculate coordinates for coin
+    // calculate coordinates for random coin
     fun locationOfCoin(): Location{
 
         // fake data
-        val myLocation:Location = Location("me")
+        val myLocation: Location = Location("me")
         myLocation.latitude = 0.0
         myLocation.longitude = 0.0
 
@@ -114,42 +113,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         var longitude: Double = myLocation.longitude
 
         val latitudeRange2km: Double = 0.0076
-        val longituteRange2km: Double = 0.0182
+        val longitudeRange2km: Double = 0.0182
 
 
         val random = Random()
         val randomLatitude: Double = random.nextDouble() * latitudeRange2km
-        val randomLongitude: Double = random.nextDouble() * longituteRange2km
+        val randomLongitude: Double = random.nextDouble() * longitudeRange2km
 
-        if(random.nextInt(1) == 0){
+        if(random.nextDouble() < 0.5){
             latitude += randomLatitude
-            Log.v("latitute", "0")
+
         } else{
             latitude -= randomLatitude
-            Log.v("latitute", "1")
         }
 
-        if(random.nextInt(1) == 0){
+        if(random.nextDouble() < 0.5){
             longitude += randomLongitude
-            Log.v("longitute", "0")
+
         }else{
             longitude -= randomLongitude
-            Log.v("longitute", "1")
 
         }
 
 
 
-
-
-        val locationOfCoin: Location  = Location("coin")
+        val locationOfCoin: Location = Location("coin")
         locationOfCoin.latitude = latitude
         locationOfCoin.longitude = longitude
 
-
-
         return locationOfCoin
     }
+
 
 
 }
