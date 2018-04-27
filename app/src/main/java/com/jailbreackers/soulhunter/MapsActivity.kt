@@ -5,6 +5,8 @@ import android.location.Address
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.location.*
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
@@ -25,15 +27,15 @@ import android.util.Log
 import com.google.android.gms.maps.model.*
 import java.util.*
 
-
+//Author Chaitali
 @SuppressLint("ByteOrderMark")
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
+    private lateinit var  mMap: GoogleMap
 
     lateinit var locationManager: LocationManager
     private val LOCATION_REQUEST_CODE = 101
-    private var mMaker: Marker? = null
+    private var mMaker: Marker?=null
 
 
     @SuppressLint("MissingPermission")
@@ -57,7 +59,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         getUserCurrentLocation = GetUserCurrentLocation()
 
         if (ActivityCompat.checkSelfPermission(this@MapsActivity, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
+                PackageManager.PERMISSION_GRANTED ) {
             mMap.setMyLocationEnabled(true)
             mMap.getUiSettings().setMyLocationButtonEnabled(true)
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -65,7 +67,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     LocationManager.GPS_PROVIDER,
                     3,
                     5f,
-                    getUserCurrentLocation)
+                    getUserCurrentLocation )
         } else {
             ActivityCompat.requestPermissions(this@MapsActivity,
                     arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION),
@@ -89,54 +91,72 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         checkPermission()
     }
 
-    var curLocation: Location? = null
 
-    inner class GetUserCurrentLocation : LocationListener {
-        constructor() {
-            curLocation = Location("me")
-            curLocation!!.longitude =18.0602
-            curLocation!!.latitude = 59.3656
 
+    inner class GetUserCurrentLocation:LocationListener {
+
+        var latitude : Double = 0.toDouble()
+        var longitide: Double = 0.toDouble()
+        // Latitude: N 59° 19' 58.0372" | Longitude: E 18° 3' 52.1572"
+
+        constructor()
+        {
+
+            latitude=59.331210
+            longitide=18.061525
         }
 
-
+       var isTheFirstTime = true
         override fun onLocationChanged(location: Location?) {
-            curLocation = location
 
-            if (mMaker != null) {
-                mMap!!.clear()
+
+            if(mMaker!=null)
+            {
+                mMap.clear()
 
             }
 
-            var latitude = curLocation!!.latitude
-            var longitide = curLocation!!.longitude
+
+
+            latitude = location!!.latitude
+            longitide = location!!.longitude
+            if (isTheFirstTime) {
+
+
+                addCoins(latitude, longitide)
+                displayCoin()
+                isTheFirstTime = false
+            }
+
             val latLng = LatLng(latitude, longitide)
 
+            //Resize marker on map
+            val icon: BitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.gingerbread)
+            val height = 140
+            val width = 120
+            val bitMapDraw = resources.getDrawable(R.drawable.gingerbread) as BitmapDrawable
+            val b = bitMapDraw.bitmap
+            val playerMarker = Bitmap.createScaledBitmap(b, width, height, false)
 
-           mMaker = mMap!!.addMarker( MarkerOptions()
-
+            //Put marker on map
+            mMaker = mMap!!.addMarker(MarkerOptions()
                     .position(latLng)
-                    .title("I Am Here !!!!")
-                   .icon (BitmapDescriptorFactory.fromResource(R.drawable.vampire_icon)))
+                    .title("You Are Here !!!!")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.gingerbread))
+                    .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
 
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,12f))
 
-
-
-
-
+            //Get Location Details
             val geocoder = Geocoder(this@MapsActivity)
-
             // Address found using the Geocoder.
             var addresses: List<Address> = emptyList()
-            addresses = geocoder.getFromLocation(latitude, longitide, 1)
+            addresses = geocoder.getFromLocation(latitude,longitide,1)
 
             val cityName = addresses[0].getAddressLine(0)
-            //val stateName = addresses[0].getAddressLine(1)
-            //val countryName = addresses[0].getAddressLine(2)
-            Toast.makeText(this@MapsActivity, " Current Location Is-" + cityName, Toast.LENGTH_SHORT).show()
 
-
+            //Show Location Details
+            Toast.makeText(this@MapsActivity," Current Location Is-"+ cityName , Toast.LENGTH_SHORT).show()
         }
 
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
@@ -154,29 +174,55 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     var setOfCoins = ArrayList<Coin>()
-    fun addCoins() {
+
+
+
+    fun addCoins(lat:Double,log:Double) {
         // in the next step we should get the marker location and create the location of the coins close to marker location
         setOfCoins.add(
 
-                Coin((R.drawable.coin_icon)
+                Coin(
+                        (R.drawable.coin_icon)
                         , "20 Dollar"
                         , 2.2
+                        ,  lat+ generate()
+                        ,  log+ generate()
+                )
 
-                        //    ,   59.327010    ,18.071384
+
+        )
+        setOfCoins.add(
+
+                Coin(
+                        (R.drawable.coin_icon)
+                        , "20 Dollar"
+                        , 6.2
+                        ,  lat + generate()
+                        ,  log + generate()
+                )
 
 
-                        , curLocation?.latitude!!
-                        , curLocation?.longitude!!
+        )
+        setOfCoins.add(
+
+                Coin(
+                        (R.drawable.coin_icon)
+                        , "20 Dollar"
+                        , 2.2
+                        ,  lat + generate()
+                        ,  log + generate()
                 )
 
 
         )
 
-
     }
 
     fun displayCoin() {
-        addCoins()
+        val bitMapDraw = resources.getDrawable(R.drawable.coin_icon) as BitmapDrawable
+        val b = bitMapDraw.bitmap
+        val playerMarker = Bitmap.createScaledBitmap(b, 180, 180, false)
+
 
         for (i in 0..setOfCoins.size - 1) {
 
@@ -188,13 +234,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             .position(coinLocation)
                             .title(setOfCoins[i].value.toString() + " €")
                             .snippet(setOfCoins[i].description)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.coin_icon))
+                            .icon(BitmapDescriptorFactory.fromBitmap(playerMarker))
             )
             // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
 
             // }
 
         }
+    }
+
+    fun generate():Double
+    {
+        val p=Math.random()
+
+        return p/100
+
     }
 }
 
@@ -283,15 +337,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     */
-/**
- * Manipulates the map once available.
- * This callback is triggered when the map is ready to be used.
- * This is where we can add markers or lines, add listeners or move the camera. In this case,
- * we just add a marker near Sydney, Australia.
- * If Google Play services is not installed on the device, the user will be prompted to install
- * it inside the SupportMapFragment. This method will only be triggered once the user has
- * installed Google Play services and returned to the app.
- *//*
+
+/*
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -352,7 +399,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                         .position(sydney)
                                         .title("Mohamad")
                                         .snippet("Get the souls")
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.vampire_icon))
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.gingerbread))
 
                         )
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 14f))
