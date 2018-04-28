@@ -247,7 +247,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     {
         val p=Math.random()
 
-        return p/100
+        return p/200
 
     }
 }
