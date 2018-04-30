@@ -5,37 +5,32 @@ import android.location.Address
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.location.*
-import android.os.Build
+import android.nfc.Tag
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.ContextCompat.checkSelfPermission
 import android.widget.Toast
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import java.util.jar.Manifest
-import com.google.android.gms.maps.UiSettings
-import android.provider.MediaStore.Images.Media.getBitmap
 import android.util.Log
 import com.google.android.gms.maps.model.*
-import java.util.*
 
 //Author Chaitali
 @SuppressLint("ByteOrderMark")
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var  mMap: GoogleMap
+    private lateinit var mMap: GoogleMap
 
     lateinit var locationManager: LocationManager
     private val LOCATION_REQUEST_CODE = 101
-    private var mMaker: Marker?=null
+    private var mMaker: Marker? = null
 
 
     @SuppressLint("MissingPermission")
@@ -59,7 +54,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         getUserCurrentLocation = GetUserCurrentLocation()
 
         if (ActivityCompat.checkSelfPermission(this@MapsActivity, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED ) {
+                PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true)
             mMap.getUiSettings().setMyLocationButtonEnabled(true)
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -67,7 +62,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     LocationManager.GPS_PROVIDER,
                     3,
                     5f,
-                    getUserCurrentLocation )
+                    getUserCurrentLocation)
         } else {
             ActivityCompat.requestPermissions(this@MapsActivity,
                     arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION),
@@ -88,30 +83,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        try {
+            val success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.mapstyle1))
+            if (!success) {
+                Log.e(Tag, "Style parsing failed.")
+            }
+        } catch (e: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", e)
+        }
+
         checkPermission()
     }
 
 
+    inner class GetUserCurrentLocation : LocationListener {
 
-    inner class GetUserCurrentLocation:LocationListener {
-
-        var latitude : Double = 0.toDouble()
+        var latitude: Double = 0.toDouble()
         var longitide: Double = 0.toDouble()
-       // Latitude: N 59° 19' 58.0372" | Longitude: E 18° 3' 52.1572"
+        // Latitude: N 59° 19' 58.0372" | Longitude: E 18° 3' 52.1572"
 
-        constructor()
-        {
+        constructor() {
 
-            latitude=59.331210
-            longitide=18.061525
+            latitude = 59.331210
+            longitide = 18.061525
         }
 
 
         override fun onLocationChanged(location: Location?) {
 
 
-            if(mMaker!=null)
-            {
+            if (mMaker != null) {
                 mMap.clear()
 
             }
@@ -135,18 +138,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.gingerbread))
                     .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
 
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,12f))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
 
             //Get Location Details
             val geocoder = Geocoder(this@MapsActivity)
             // Address found using the Geocoder.
             var addresses: List<Address> = emptyList()
-            addresses = geocoder.getFromLocation(latitude,longitide,1)
+            addresses = geocoder.getFromLocation(latitude, longitide, 1)
 
             val cityName = addresses[0].getAddressLine(0)
 
             //Show Location Details
-            Toast.makeText(this@MapsActivity," Current Location Is-"+ cityName , Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MapsActivity, " Current Location Is-" + cityName, Toast.LENGTH_SHORT).show()
         }
 
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
