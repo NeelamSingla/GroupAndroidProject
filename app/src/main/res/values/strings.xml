@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Treasure Hunter</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_home_menu">HomeMenuActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="score">Score</string>
+</resources>
