@@ -106,7 +106,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             longitide=18.061525
         }
 
-
+        var isTheFirstTime = true
         override fun onLocationChanged(location: Location?) {
 
 
@@ -118,6 +118,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             latitude = location!!.latitude
             longitide = location!!.longitude
+            if (isTheFirstTime) {
+
+
+                addCoins(latitude, longitide)
+                displayCoin()
+                isTheFirstTime = false
+            }
+
             val latLng = LatLng(latitude, longitide)
 
             //Resize marker on map
@@ -160,6 +168,84 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         override fun onProviderDisabled(provider: String?) {
 
         }
+
+    }
+
+    var setOfCoins = ArrayList<Coin>()
+
+
+
+    fun addCoins(lat:Double,log:Double) {
+        // in the next step we should get the marker location and create the location of the coins close to marker location
+        setOfCoins.add(
+
+                Coin(
+                        (R.drawable.coin_icon)
+                        , "20 Dollar"
+                        , 2.2
+                        ,  lat+ generate()
+                        ,  log+ generate()
+                )
+
+
+        )
+        setOfCoins.add(
+
+                Coin(
+                        (R.drawable.coin_icon)
+                        , "20 Dollar"
+                        , 6.2
+                        ,  lat + generate()
+                        ,  log + generate()
+                )
+
+
+        )
+        setOfCoins.add(
+
+                Coin(
+                        (R.drawable.coin_icon)
+                        , "20 Dollar"
+                        , 2.2
+                        ,  lat + generate()
+                        ,  log + generate()
+                )
+
+
+        )
+
+    }
+
+    fun displayCoin() {
+        val bitMapDraw = resources.getDrawable(R.drawable.coin_icon) as BitmapDrawable
+        val b = bitMapDraw.bitmap
+        val playerMarker = Bitmap.createScaledBitmap(b, 180, 180, false)
+
+
+        for (i in 0..setOfCoins.size - 1) {
+
+            //  if (setOfCoins[i].isCatch == false) {
+            val coinLocation = LatLng(setOfCoins[i].location!!.latitude, setOfCoins[i].location!!.longitude)
+
+            mMap.addMarker(
+                    MarkerOptions()
+                            .position(coinLocation)
+                            .title(setOfCoins[i].value.toString() + " $")
+                            .snippet(setOfCoins[i].description)
+                            .icon(BitmapDescriptorFactory.fromBitmap(playerMarker))
+            )
+            // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
+
+            // }
+
+        }
+    }
+
+    fun generate():Double
+    {
+        val p=Math.random()
+
+        return p/200
 
     }
 
