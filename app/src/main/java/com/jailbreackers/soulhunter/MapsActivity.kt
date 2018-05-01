@@ -119,7 +119,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             latitude = location!!.latitude
             longitide = location!!.longitude
 
-            displayCoin(latitude, longitide)
+            displayCoin(location)
 
 
 
@@ -172,8 +172,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
 
-    fun createCoins(lat:Double,log:Double) {
+    fun createCoins(location: Location) {
         // in the next step we should get the marker location and create the location of the coins close to marker location
+        var lat:Double=location.latitude
+        var log:Double=location.longitude
+
         setOfCoins.add(
 
                 Coin(
@@ -214,13 +217,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
     var isTheFirstTime = true
 
-    fun displayCoin(lat:Double,log:Double) {
+    fun displayCoin(location:Location) {
 
         if (isTheFirstTime) {
-            createCoins(lat, log)
+            createCoins(location)
             isTheFirstTime = false
 
         }
+
 
 
         val bitMapDraw = resources.getDrawable(R.drawable.coin_icon) as BitmapDrawable
@@ -230,25 +234,33 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         for (i in 0..setOfCoins.size - 1) {
 
+
             if (setOfCoins[i].isCatch == false) {
-                val coinLocation = LatLng(setOfCoins[i].location!!.latitude, setOfCoins[i].location!!.longitude)
 
-                mMap.addMarker(
-                        MarkerOptions()
-                                .position(coinLocation)
-                                .title(setOfCoins[i].value.toString() + " $")
-                                .snippet(setOfCoins[i].description)
-                                .icon(BitmapDescriptorFactory.fromBitmap(playerMarker))
-                )
-                // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
+                if (location.distanceTo(setOfCoins[i].location) > 50) {
 
-            } else {
+                    val coinLocation = LatLng(setOfCoins[i].location!!.latitude, setOfCoins[i].location!!.longitude)
 
+                    mMap.addMarker(
+                            MarkerOptions()
+                                    .position(coinLocation)
+                                    .title(setOfCoins[i].value.toString() + " $")
+                                    .snippet(setOfCoins[i].description)
+                                    .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
+                    // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
+                } else {
+                    // catch it
+                    setOfCoins[i].isCatch = true
+                    // get the values( the points)
 
-                // get the values( the points) and then remove from arraylist
-                setOfCoins.remove(setOfCoins[i])
+                    // remove from arraylist
+                    setOfCoins[i].isCatch =true
+                //    setOfCoins.remove(setOfCoins[i])
+
+                }
 
             }
+
         }
     }
 
