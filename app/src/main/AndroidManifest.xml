@@ -47,6 +47,7 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".HelpInstructionsActivity" />
+        <activity android:name=".ScoreActivity"></activity>
     </application>
 
 </manifest>
