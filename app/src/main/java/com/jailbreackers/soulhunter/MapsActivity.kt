@@ -24,10 +24,9 @@ import com.google.android.gms.maps.model.*
 
 //Author Chaitali
 @SuppressLint("ByteOrderMark")
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-
+abstract class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+    private final val TAG: MapsActivity? = null
     private lateinit var mMap: GoogleMap
-
     lateinit var locationManager: LocationManager
     private val LOCATION_REQUEST_CODE = 101
     private var mMaker: Marker? = null
@@ -88,10 +87,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     MapStyleOptions.loadRawResourceStyle(
                             this, R.raw.mapstyle1))
             if (!success) {
-                Log.e(Tag, "Style parsing failed.")
+                Log.e(TAG.toString(), "Style parsing failed.")
             }
         } catch (e: Resources.NotFoundException) {
-            Log.e(TAG, "Can't find style. Error: ", e)
+            Log.e(TAG.toString(), "Can't find style. Error: ", e)
         }
 
         checkPermission()
