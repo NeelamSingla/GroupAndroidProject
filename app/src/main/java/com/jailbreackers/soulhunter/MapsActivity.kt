@@ -257,7 +257,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                     .title(setOfCoins[i].value.toString() + " $")
                                     .snippet(setOfCoins[i].description)
                                     .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
-                    // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
+                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
                 } else {
                     // catch it
                     setOfCoins[i].isCatch = true
