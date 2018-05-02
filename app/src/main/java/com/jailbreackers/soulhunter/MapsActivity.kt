@@ -5,24 +5,19 @@ import android.location.Address
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.location.*
-import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.ContextCompat.checkSelfPermission
 import android.widget.Toast
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import java.util.jar.Manifest
-import com.google.android.gms.maps.UiSettings
-import android.provider.MediaStore.Images.Media.getBitmap
 import android.util.Log
 import com.google.android.gms.maps.model.*
 import java.util.*
@@ -88,6 +83,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        try
+        {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            val success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.mapstyle))
+            if (!success)
+            {
+                Log.e("error","Style parsing failed.")
+            }
+        }
+        catch (e: Resources.NotFoundException) {
+            Log.e("error", "Can't find style. Error: ", e)
+        }
         checkPermission()
     }
 
