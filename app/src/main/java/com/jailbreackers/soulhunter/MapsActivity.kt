@@ -57,6 +57,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 PackageManager.PERMISSION_GRANTED ) {
             mMap.setMyLocationEnabled(true)
             mMap.getUiSettings().setMyLocationButtonEnabled(true)
+            mMap.getUiSettings().setZoomControlsEnabled(true)
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
@@ -83,7 +84,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        try
+       try
         {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
