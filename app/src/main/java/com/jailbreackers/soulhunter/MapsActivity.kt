@@ -19,6 +19,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import com.google.android.gms.maps.model.*
 import java.util.*
 
@@ -34,7 +36,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     @SuppressLint("MissingPermission")
-
+    var scoreLabel: TextView?=null
+    var distancelabel: TextView?=null
+    var caloriesLabel:TextView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        scoreLabel=findViewById<View>(R.id.scoreLabel) as TextView
+        distancelabel=findViewById<View>(R.id.distancelabel) as TextView
+        caloriesLabel= findViewById<View>(R.id.calories)as TextView
+
+        scoreLabel!!.setText(" Score : 00 ")
+        distancelabel!!.setText(" Distance : 00 m ")
+        caloriesLabel!!.setText("Calories: 00")
 
     }
 
@@ -179,8 +190,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    var setOfCoins = ArrayList<Coin>()
-
+    var coins = ArrayList<Coin>()
+    lateinit var oldLocation: Location
 
 
     fun createCoins(location: Location) {
@@ -188,7 +199,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         var lat:Double=location.latitude
         var log:Double=location.longitude
 
-        setOfCoins.add(
+        coins.add(
 
                 Coin(
                         (R.drawable.coin_icon)
@@ -200,7 +211,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         )
-        setOfCoins.add(
+        coins.add(
 
                 Coin(
                         (R.drawable.coin_icon)
@@ -212,7 +223,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         )
-        setOfCoins.add(
+        coins.add(
 
                 Coin(
                         (R.drawable.coin_icon)
@@ -226,47 +237,66 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         )
 
     }
+    var distance: Float = 0f
     var isTheFirstTime = true
+    var score: Double = 0.0
 
-    fun displayCoin(location:Location) {
+    fun displayCoin(location: Location) {
 
         if (isTheFirstTime) {
             createCoins(location)
+            oldLocation=location
             isTheFirstTime = false
-
         }
+        distance = distance+location.distanceTo(oldLocation)
+        distancelabel!!.setText(" Disrance: ${distance.toInt() } m ")
+        caloriesLabel!!.setText("Calories: ${   (distance * 15/320).toInt()   } ")
+        //update the textview
 
 
+
+
+
+
+
+
+
+
+
+        oldLocation=location
 
         val bitMapDraw = resources.getDrawable(R.drawable.coin_icon) as BitmapDrawable
         val b = bitMapDraw.bitmap
         val playerMarker = Bitmap.createScaledBitmap(b, 180, 180, false)
 
 
-        for (i in 0..setOfCoins.size - 1) {
+        for (i in 0..coins.size - 1) {
 
 
-            if (setOfCoins[i].isCatch == false) {
+            if (coins[i].isCatch == false) {
 
-                if (location.distanceTo(setOfCoins[i].location) > 50) {
+                if (location.distanceTo(coins[i].location) > 50) {
 
-                    val coinLocation = LatLng(setOfCoins[i].location!!.latitude, setOfCoins[i].location!!.longitude)
+                    val coinLocation = LatLng(coins[i].location!!.latitude, coins[i].location!!.longitude)
 
                     mMap.addMarker(
                             MarkerOptions()
                                     .position(coinLocation)
-                                    .title(setOfCoins[i].value.toString() + " $")
-                                    .snippet(setOfCoins[i].description)
+                                    .title(coins[i].value.toString() + " $")
+                                    .snippet(coins[i].description)
                                     .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
-                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
+                    // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
                 } else {
                     // catch it
-                    setOfCoins[i].isCatch = true
+                    coins[i].isCatch = true
                     // get the values( the points)
+                    score = score + coins[i].value!!
+                    scoreLabel!!.setText(" Score : ${score} ")
+                    //play Sound
+                    //send the intent to display the score
 
                     // remove from arraylist
-                    setOfCoins[i].isCatch =true
-                //    setOfCoins.remove(setOfCoins[i])
+
 
                 }
 
@@ -277,7 +307,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun generate():Double
     {
-        val p=Math.random()
+        var p = Math.random()
+
+        var randomSign = Math.random()
+
+        if(randomSign < 0.5) {
+            p *= -1
+        }
+
 
         return p/200
 
