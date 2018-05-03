@@ -14,7 +14,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Instructions:                The player starts the game and gets the current location on the map. The player then see the points and then the player has to run to collect the points. The player can see the earned score in the Score menu."
+        android:text=" Gold Runner is a collecting-coins game from random locations on the map. in which the player collects the coins as the shortest time as possible.                                       First release : May 15,2018                                     Platform : Android                                                                                     Designers: Chaitali Deore, Mohamad Yassin, Qaisar Mukhtar, Neelam Singla, Michal Szukala, Manoj Kumar Arya, Pradeep Agrawal, Yannick Ngabirano, Nisreen Alhmaedy."
+      
+       
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
