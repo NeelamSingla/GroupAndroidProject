@@ -34,8 +34,9 @@ proguard/
 captures/
 .idea/caches/build_file_checksums.ser
 
-app/app.iml
+/app/app.iml
 /.idea/caches/
 .idea
+.idea/workspace.xml
 /.idea/
 /.idea/libraries/
