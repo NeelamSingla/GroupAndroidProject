@@ -4,6 +4,7 @@ import android.location.Geocoder
 import android.location.Address
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -204,7 +205,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Coin(
                         (R.drawable.coin_icon)
                         , "20 Dollar"
-                        , 2.2
+                        , 10.0
                         ,  lat+ generate()
                         ,  log+ generate()
                 )
@@ -216,7 +217,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Coin(
                         (R.drawable.coin_icon)
                         , "20 Dollar"
-                        , 6.2
+                        , 60.0
                         ,  lat + generate()
                         ,  log + generate()
                 )
@@ -228,7 +229,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Coin(
                         (R.drawable.coin_icon)
                         , "20 Dollar"
-                        , 2.2
+                        , 125.0
                         ,  lat + generate()
                         ,  log + generate()
                 )
@@ -252,14 +253,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         distancelabel!!.setText(" Distance: ${distance.toInt() } m ")
         caloriesLabel!!.setText("Calories: ${   (distance * 15/320).toInt()   } ")
         //update the textview
-
-
-
-
-
-
-
-
 
 
 
@@ -293,7 +286,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     score = score + coins[i].value!!
                     scoreLabel!!.setText(" Score : ${score} ")
                     //play Sound
-                    //send the intent to display the score
+
+
+
+
 
                     // remove from arraylist
 
@@ -303,6 +299,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
         }
+        //send the intent to display the score
+        var preferences = getSharedPreferences("PREFS", 0)
+        var editor = preferences.edit()
+        editor.putInt("lastScore", score.toInt() )
+        editor.commit()
     }
 
     fun generate():Double
@@ -321,6 +322,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
+
+
+override
+fun onBackPressed(){
+    var intent = Intent(applicationContext, HomeMenuActivity::class.java)
+    startActivity(intent)
+    finish()
+
 }
-
-
+}

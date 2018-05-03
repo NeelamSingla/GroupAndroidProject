@@ -1,5 +1,6 @@
 package com.jailbreackers.soulhunter
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -46,11 +47,22 @@ class ScoreActivity : AppCompatActivity() {
             editor.putInt("best1", best1)
             editor.apply()
         }
-        game_score!!.text = "LAST SCORE:" + lastScore + "\n" +
-                "BEST1:" + best1 + "\n" +
-                "BEST2:" + best2 + "\n" +
-                "BEST3:" + best3 + "\n"
-
+        game_score !!.text = "LAST SCORE: " + lastScore + "\n" +
+                "BEST1: " + best1 + "\n" +
+                "BEST2: " + best2 + "\n" +
+                "BEST3: " + best3 + "\n"
     }
+    override
+    fun onBackPressed(){
+        var intent = Intent(applicationContext, HomeMenuActivity::class.java)
+        startActivity(intent)
+        finish()
 
 }
+    fun play(view:View) {
+        startActivity(Intent(getApplicationContext(), MapsActivity::class.java))
+    }
+}
+
+
+
