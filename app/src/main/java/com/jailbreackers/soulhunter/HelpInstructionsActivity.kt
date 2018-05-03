@@ -7,6 +7,6 @@ class HelpInstructionsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_help_instructions)
+        setContentView(R.layout.activity_about)
     }
 }
