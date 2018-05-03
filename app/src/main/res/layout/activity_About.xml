@@ -8,18 +8,19 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="243dp"
-        android:layout_height="325dp"
+        android:layout_width="365dp"
+        android:layout_height="503dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text=" Gold Runner is a collecting-coins game from random locations on the map. in which the player collects the coins as the shortest time as possible.                                       First release : May 15,2018                                     Platform : Android                                                                                     Designers: Chaitali Deore, Mohamad Yassin, Qaisar Mukhtar, Neelam Singla, Michal Szukala, Manoj Kumar Arya, Pradeep Agrawal, Yannick Ngabirano, Nisreen Alhmaedy."
-      
-       
+
+
+        android:text="Gold Runner is a collecting-coins game from random locations on the map. in which the player collects the coins as the shortest time as possible.                                      First release : May 15,2018                 Platform : Android                                                    Designers: Chaitali Deore, Mohamad Yassin, Qaisar Mukhtar, Neelam Singla, Michal Szukala, Manoj Kumar Arya, Pradeep Agrawal, Yannick Ngabirano, Nisreen Alhmaedy.  "
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
