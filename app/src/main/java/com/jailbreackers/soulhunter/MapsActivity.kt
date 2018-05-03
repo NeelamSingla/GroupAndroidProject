@@ -249,7 +249,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             isTheFirstTime = false
         }
         distance = distance+location.distanceTo(oldLocation)
-        distancelabel!!.setText(" Disrance: ${distance.toInt() } m ")
+        distancelabel!!.setText(" Distance: ${distance.toInt() } m ")
         caloriesLabel!!.setText("Calories: ${   (distance * 15/320).toInt()   } ")
         //update the textview
 
