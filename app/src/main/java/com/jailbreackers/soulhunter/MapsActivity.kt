@@ -152,10 +152,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val latLng = LatLng(latitude, longitide)
 
             //Resize marker on map
-            val icon: BitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.gingerbread)
+            val icon: BitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.runner)
             val height = 140
             val width = 120
-            val bitMapDraw = resources.getDrawable(R.drawable.gingerbread) as BitmapDrawable
+            val bitMapDraw = resources.getDrawable(R.drawable.runner) as BitmapDrawable
             val b = bitMapDraw.bitmap
             val playerMarker = Bitmap.createScaledBitmap(b, width, height, false)
 
@@ -163,7 +163,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             mMaker = mMap!!.addMarker(MarkerOptions()
                     .position(latLng)
                     .title("You Are Here !!!!")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.gingerbread))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.runner))
                     .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,12f))
