@@ -35,6 +35,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val LOCATION_REQUEST_CODE = 101
     private var mMaker: Marker?=null
 
+    private var sound: SoundPlayer? = null
 
     @SuppressLint("MissingPermission")
     var scoreLabel: TextView?=null
@@ -56,6 +57,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         scoreLabel!!.setText(" Score : 00 ")
         distancelabel!!.setText(" Distance : 00 m ")
         caloriesLabel!!.setText("Calories: 00")
+
+        sound = SoundPlayer(this)
 
     }
 
@@ -282,6 +285,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 } else {
                     // catch it
                     coins[i].isCatch = true
+                    sound!!.playHitSound()
                     // get the values( the points)
                     score = score + coins[i].value!!
                     scoreLabel!!.setText(" Score : ${score} ")
