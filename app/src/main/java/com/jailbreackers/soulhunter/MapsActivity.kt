@@ -1,7 +1,5 @@
 package com.jailbreackers.soulhunter
 
-import android.location.Geocoder
-import android.location.Address
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -10,18 +8,17 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.location.*
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import android.util.Log
-import android.view.View
-import android.widget.TextView
 import com.google.android.gms.maps.model.*
 import java.util.*
 
@@ -197,20 +194,46 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     var coins = ArrayList<Coin>()
     lateinit var oldLocation: Location
 
+    fun createSingleCoin(location: Location): Coin {
+        var latOfPlayer: Double = location.latitude
+        var logOfPlayer: Double = location.longitude
+
+        var latOfCoin: Double = latOfPlayer + generate()
+        var logOfCoin: Double = logOfPlayer + generate()
+
+        return Coin(
+                (R.drawable.coin_icon),
+                "Coin",
+                calculateCoinValue(latOfPlayer, logOfPlayer, latOfCoin, logOfCoin),
+                latOfCoin,
+                logOfCoin
+        )
+    }
+
 
     fun createCoins(location: Location) {
         // in the next step we should get the marker location and create the location of the coins close to marker location
-        var lat:Double=location.latitude
-        var log:Double=location.longitude
+        var latOfPlayer:Double=location.latitude
+        var logOfPlayer:Double=location.longitude
+
+        var latOfCoin1: Double = latOfPlayer + generate()
+        var logOfCoin1: Double = logOfPlayer + generate()
+
+        var latOfCoin2: Double = latOfPlayer + generate()
+        var logOfCoin2: Double = logOfPlayer + generate()
+
+        var latOfCoin3: Double = latOfPlayer + generate()
+        var logOfCoin3: Double = logOfPlayer + generate()
+
 
         coins.add(
 
                 Coin(
                         (R.drawable.coin_icon)
-                        , "20 Dollar"
-                        , 10.0
-                        ,  lat+ generate()
-                        ,  log+ generate()
+                        , "Coin1"
+                        ,  calculateCoinValue(latOfPlayer, logOfPlayer, latOfCoin1, logOfCoin1)
+                        ,  latOfCoin1
+                        ,  logOfCoin1
                 )
 
 
@@ -219,10 +242,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 Coin(
                         (R.drawable.coin_icon)
-                        , "20 Dollar"
-                        , 60.0
-                        ,  lat + generate()
-                        ,  log + generate()
+                        , "Coin2"
+                        ,  calculateCoinValue(latOfPlayer, logOfPlayer, latOfCoin2, logOfCoin2)
+                        ,  latOfCoin2
+                        ,  logOfCoin2
                 )
 
 
@@ -231,16 +254,39 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 Coin(
                         (R.drawable.coin_icon)
-                        , "20 Dollar"
-                        , 125.0
-                        ,  lat + generate()
-                        ,  log + generate()
+                        , "Coin3"
+                        ,  calculateCoinValue(latOfPlayer, logOfPlayer, latOfCoin3, logOfCoin3)
+                        ,  latOfCoin3
+                        ,  logOfCoin3
                 )
 
 
         )
 
     }
+
+    fun calculateCoinValue(latOfPlayer: Double, logOfPlayer: Double, latOfCoin: Double, logOfCoin: Double ): Double {
+        var distanceToCoinArray = floatArrayOf(0.0f)
+        Location.distanceBetween(latOfPlayer, logOfPlayer, latOfCoin, logOfCoin, distanceToCoinArray)
+
+        val distanceToCoin: Float = distanceToCoinArray[0]
+        var coinValue: Double = 0.0
+
+        // Coin value if distance greater than 600 m
+        if (distanceToCoin > 600) {
+            coinValue = 15.0
+        } else if (distanceToCoin > 300) {
+            coinValue = 10.0
+        }else{
+            coinValue = 5.0
+        }
+
+
+        return coinValue
+    }
+
+
+
     var distance: Float = 0f
     var isTheFirstTime = true
     var score: Double = 0.0
