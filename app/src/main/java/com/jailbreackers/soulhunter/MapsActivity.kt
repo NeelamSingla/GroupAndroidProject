@@ -205,13 +205,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         coins.add(
 
-                Coin(
-                        (R.drawable.coin_icon)
-                        , "20 Dollar"
-                        , 10.0
-                        ,  lat+ generate()
-                        ,  log+ generate()
-                )
+                        Coin(
+                                (R.drawable.coin_icon)
+                                , "20 Dollar"
+                                , 10.0
+                                ,  lat+ generate()
+                                ,  log+ generate()
+                        )
 
 
         )
@@ -285,13 +285,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 } else {
                     // catch it
                     coins[i].isCatch = true
+                    // play the sound
                     sound!!.playHitSound()
                     // get the values( the points)
                     score = score + coins[i].value!!
                     scoreLabel!!.setText(" Score : ${score} ")
-                    //play Sound
-
-
 
 
 
@@ -335,4 +333,7 @@ fun onBackPressed(){
     finish()
 
 }
+    fun finish(view:View) {
+        startActivity(Intent(getApplicationContext(), ScoreActivity::class.java))
+    }
 }

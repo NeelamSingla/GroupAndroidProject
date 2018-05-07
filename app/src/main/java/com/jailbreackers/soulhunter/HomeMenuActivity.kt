@@ -3,6 +3,9 @@ package com.jailbreackers.soulhunter
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
+import android.view.View
+import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_home_menu.*
 
 class HomeMenuActivity : AppCompatActivity() {
