@@ -9,6 +9,7 @@ class Coin {
     var description: String? = null
     var value: Double? = null
     var location: Location? = null
+
     var isCatch = false
 
     constructor(image: Int,
@@ -26,4 +27,15 @@ class Coin {
 
 
     }
+   fun changeLocation  (location: Location,p:Double ){
+       this.location!!.latitude =   location!!.latitude+p
+       this.location!!.longitude = location!!.longitude+p
+
+   }
+    val p = Math.random()
+    fun generateValue(){
+        val p = Math.random()
+        this.value = 10*p
+    }
+
 }

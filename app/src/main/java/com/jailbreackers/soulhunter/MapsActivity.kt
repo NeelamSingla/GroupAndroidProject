@@ -278,34 +278,34 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         for (i in 0..coins.size - 1) {
 
 
-            if (coins[i].isCatch == false) {
+            //    if (coins[i].isCatch == false) {
 
-                if (location.distanceTo(coins[i].location) > 50) {
+            if (location.distanceTo(coins[i].location) > 50) {
 
-                    val coinLocation = LatLng(coins[i].location!!.latitude, coins[i].location!!.longitude)
+                val coinLocation = LatLng(coins[i].location!!.latitude, coins[i].location!!.longitude)
 
-                    mMap.addMarker(
-                            MarkerOptions()
-                                    .position(coinLocation)
-                                    .title(coins[i].value.toString() + " $")
-                                    .snippet(coins[i].description)
-                                    .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
-                    // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
-                } else {
-                    // catch it
-                    coins[i].isCatch = true
-                    // play the sound
-                    sound!!.playHitSound()
-                    // get the values( the points)
-                    score = score + coins[i].value!!
-                    scoreLabel!!.setText(" Score : ${score} ")
+                mMap.addMarker(
+                        MarkerOptions()
+                                .position(coinLocation)
+                                .title(coins[i].value.toString() + " $")
+                                .snippet(coins[i].description)
+                                .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
+                // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
+            } else {
+                // catch it
+                //   coins[i].isCatch = true
+                // play the sound
+                sound!!.playHitSound()
+                // get the values( the points)
+                score = score + coins[i].value!!
+                scoreLabel!!.setText(" Score : ${score} ")
+                coins[i].changeLocation(location, generate())
+                coins[i].generateValue()
+
+                // remove from arraylist
 
 
-
-                    // remove from arraylist
-
-
-                }
+                //   }
 
             }
 
@@ -316,6 +316,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         editor.putInt("lastScore", score.toInt() )
         editor.commit()
     }
+
+
 
     fun generate():Double
     {
@@ -331,8 +333,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return p/200
 
     }
-
-
 
 
 override
