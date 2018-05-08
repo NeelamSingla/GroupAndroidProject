@@ -165,8 +165,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .title("You Are Here !!!!")
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.runner))
                     .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
+            val cameraPosition = CameraPosition.builder()
+                    .target(latLng)
+                    .zoom(13f)
+                    .bearing(90f)
+                    .build()
 
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,12f))
+            // Animate the change in camera view over 2 seconds
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
+                    2000, null)
+
+           // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,12f))
 
             //Get Location Details
             val geocoder = Geocoder(this@MapsActivity)
