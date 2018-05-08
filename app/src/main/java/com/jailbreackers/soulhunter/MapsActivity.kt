@@ -312,6 +312,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val playerMarker = Bitmap.createScaledBitmap(b, 180, 180, false)
 
 
+
         for (i in 0..coins.size - 1) {
 
 
@@ -325,7 +326,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             MarkerOptions()
                                     .position(coinLocation)
                                     .title(coins[i].value.toString() + " $")
-                                    .snippet(coins[i].description)
+                                    .snippet("lat=" + coins[i].location!!.latitude + ", long="+ coins[i].location!!.longitude)
+
+                                        //.snippet(coins[i].description)
                                     .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
                     // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
                 } else {
@@ -342,6 +345,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
                     // remove from arraylist
+                    coins.set(i, createSingleCoin(location))
+
+
+
+                    //display single coin on the screen
+                    val coinLocation = LatLng(coins[i].location!!.latitude, coins[i].location!!.longitude)
+                    mMap.addMarker(
+                            MarkerOptions()
+                                    .position(coinLocation)
+                                    .title(coins[i].value.toString() + " $")
+                                    .snippet("lat=" + coins[i].location!!.latitude + ", long="+ coins[i].location!!.longitude)
+
+                                    //.snippet(coins[i].description)
+                                    .icon(BitmapDescriptorFactory.fromBitmap(playerMarker))).showInfoWindow()
+
 
 
                 }
@@ -370,6 +388,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return p/200
 
     }
+
 
 
 
