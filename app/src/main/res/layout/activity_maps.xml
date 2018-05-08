@@ -11,56 +11,48 @@
 
 
     <TextView
+        android:id="@+id/calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="Calories: 00"
+        android:textSize="16sp"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/scoreLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="Score: 300"
         android:textSize="16sp"
-        map:layout_constraintBottom_toBottomOf="parent"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintHorizontal_bias="0.0"
+        map:layout_constraintEnd_toStartOf="@+id/calories"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintVertical_bias="0.017" />
+        map:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/distancelabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:gravity="center_horizontal"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="Distance: 30 m"
+        android:text="Distance : 00 m"
         android:textSize="16sp"
-        map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintHorizontal_bias="1.0"
-        map:layout_constraintStart_toEndOf="@+id/scoreLabel"
-        map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintVertical_bias="0.017" />
-
-    <TextView
-        android:id="@+id/calories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="4dp"
-        android:text="TextView"
-        android:textSize="16sp"
-        map:layout_constraintBottom_toBottomOf="parent"
-        map:layout_constraintEnd_toStartOf="@+id/distancelabel"
-        map:layout_constraintHorizontal_bias="0.565"
-        map:layout_constraintStart_toEndOf="@+id/scoreLabel"
-        map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintVertical_bias="0.016" />
+        map:layout_constraintStart_toEndOf="@+id/calories"
+        map:layout_constraintTop_toTopOf="parent" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -68,31 +60,25 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="415dp"
-        android:layout_height="540dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="32dp"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintHorizontal_bias="0.49"
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintVertical_bias="0.51"
+        map:layout_constraintVertical_bias="1.0"
         tools:context=".MapsActivity" />
 
     <Button
         android:id="@+id/FinishRun"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="200dp"
-        android:layout_marginStart="0dp"
-        android:text="Finish Run"
-        android:onClick="finish"
-        android:textAllCaps="false"
         android:backgroundTint="@android:color/holo_blue_dark"
+        android:onClick="finish"
+        android:text="Finish Run"
+        android:textAllCaps="false"
         map:layout_constraintBottom_toBottomOf="parent"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintHorizontal_bias="0.0"
         map:layout_constraintStart_toStartOf="parent" />
 
 
