@@ -186,7 +186,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val cityName = addresses[0].getAddressLine(0)
 
             //Show Location Details
-            Toast.makeText(this@MapsActivity," Current Location Is-"+ cityName , Toast.LENGTH_SHORT).show()
+       //     Toast.makeText(this@MapsActivity," Current Location Is-"+ cityName , Toast.LENGTH_SHORT).show()
         }
 
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
