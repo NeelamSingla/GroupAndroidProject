@@ -273,9 +273,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         var coinValue: Double = 0.0
 
         // Coin value if distance greater than 600 m
-        if (distanceToCoin > 600) {
-            coinValue = 15.0
-        } else if (distanceToCoin > 300) {
+        if (distanceToCoin > 300) {
             coinValue = 10.0
         }else{
             coinValue = 5.0
@@ -307,9 +305,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         oldLocation=location
 
-        val bitMapDraw = resources.getDrawable(R.drawable.coin_icon) as BitmapDrawable
+        val bitMapDraw = resources.getDrawable(R.drawable.coin_ten) as BitmapDrawable
         val b = bitMapDraw.bitmap
-        val playerMarker = Bitmap.createScaledBitmap(b, 180, 180, false)
+        val playerMarker = Bitmap.createScaledBitmap(b, 160, 160, false)
+
+
+
+        val bitMapCoinFive = resources.getDrawable(R.drawable.coin_five) as BitmapDrawable
+        val bb = bitMapCoinFive.bitmap
+        val coinFive = Bitmap.createScaledBitmap(bb, 160, 160, false)
+
+
+
 
 
 
@@ -322,15 +329,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                     val coinLocation = LatLng(coins[i].location!!.latitude, coins[i].location!!.longitude)
 
-                    mMap.addMarker(
-                            MarkerOptions()
-                                    .position(coinLocation)
-                                    .title(coins[i].value.toString() + " $")
-                                    .snippet("lat=" + coins[i].location!!.latitude + ", long="+ coins[i].location!!.longitude)
+                    if(coins[i].value == 5.0) {
+
+                        mMap.addMarker(
+                                MarkerOptions()
+                                        .position(coinLocation)
+                                        .title(coins[i].value.toString())
+                                        .snippet("lat=" + coins[i].location!!.latitude + ", long=" + coins[i].location!!.longitude)
 
                                         //.snippet(coins[i].description)
-                                    .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
-                    // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
+                                        .icon(BitmapDescriptorFactory.fromBitmap(coinFive)))
+                        // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
+                    }else{
+                        mMap.addMarker(
+                                MarkerOptions()
+                                        .position(coinLocation)
+                                        .title(coins[i].value.toString())
+                                        .snippet("lat=" + coins[i].location!!.latitude + ", long="+ coins[i].location!!.longitude)
+
+                                        //.snippet(coins[i].description)
+                                        .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
+
+                    }
                 } else {
                     // catch it
                     coins[i].isCatch = true
@@ -350,15 +370,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
                     //display single coin on the screen
-                    val coinLocation = LatLng(coins[i].location!!.latitude, coins[i].location!!.longitude)
-                    mMap.addMarker(
-                            MarkerOptions()
-                                    .position(coinLocation)
-                                    .title(coins[i].value.toString() + " $")
-                                    .snippet("lat=" + coins[i].location!!.latitude + ", long="+ coins[i].location!!.longitude)
+                    if(coins[i].value == 5.0) {
+                        val coinLocation = LatLng(coins[i].location!!.latitude, coins[i].location!!.longitude)
+                        mMap.addMarker(
+                                MarkerOptions()
+                                        .position(coinLocation)
+                                        .title(coins[i].value.toString())
+                                        .snippet("lat=" + coins[i].location!!.latitude + ", long=" + coins[i].location!!.longitude)
 
-                                    //.snippet(coins[i].description)
-                                    .icon(BitmapDescriptorFactory.fromBitmap(playerMarker))).showInfoWindow()
+                                        //.snippet(coins[i].description)
+                                        .icon(BitmapDescriptorFactory.fromBitmap(coinFive)))
+                    }else{
+
+                          val coinLocation = LatLng(coins[i].location!!.latitude, coins[i].location!!.longitude)
+                           mMap.addMarker(
+                                   MarkerOptions()
+                                   .position(coinLocation)
+                                   .title(coins[i].value.toString())
+                                   .snippet("lat=" + coins[i].location!!.latitude + ", long=" + coins[i].location!!.longitude)
+                                   .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
+
+
+
+
+
+
+                    }
 
 
 
