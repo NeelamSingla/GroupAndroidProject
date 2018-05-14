@@ -8,17 +8,19 @@
     tools:context=".ScoreActivity">
 
     <TextView
-        android:id="@+id/my_score"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/current_score"
+        android:layout_width="205dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text=""
+        android:textColor="@color/colorPrimary"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.099" />
 
     <Button
         android:id="@+id/button"
@@ -34,4 +36,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/best1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_score" />
+
+    <TextView
+        android:id="@+id/best2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/best1" />
+
+    <TextView
+        android:id="@+id/best3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="335dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/best2" />
 </android.support.constraint.ConstraintLayout>
