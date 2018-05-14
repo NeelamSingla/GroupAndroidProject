@@ -23,6 +23,7 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.google.android.gms.maps.model.*
+import kotlinx.android.synthetic.main.activity_maps.*
 import java.util.*
 
 //Author Chaitali
@@ -251,6 +252,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
     var distance: Float = 0f
+    var calories: Float = 0f
     var isTheFirstTime = true
     var score: Double = 0.0
 
@@ -262,8 +264,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             isTheFirstTime = false
         }
         distance = distance+location.distanceTo(oldLocation)
+        calories = (distance * 15/320)
         distancelabel!!.setText(" Distance:${distance.toInt()} m")
-        caloriesLabel!!.setText("Calories: ${   (distance * 15/320).toInt()   } ")
+        caloriesLabel!!.setText("Calories: ${  calories.toInt()   } ")
         //update the textview
 
 
@@ -315,6 +318,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         var preferences = getSharedPreferences("PREFS", 0)
         var editor = preferences.edit()
         editor.putInt("lastScore", score.toInt() )
+        editor.putInt("lastDistance", distance.toInt() )
+        editor.putInt("lastCalories", calories.toInt() )
         editor.commit()
     }
 
