@@ -12,6 +12,7 @@ class ScoreActivity : AppCompatActivity() {
     internal var best1_score: TextView? = null
     internal var best2_score: TextView? = null
     internal var best3_score: TextView? = null
+    internal var date: String =""
     internal var currentScore: Int = 0
     internal var currentDistance: Int = 0
     internal var currentCalories: Int = 0
@@ -30,6 +31,7 @@ class ScoreActivity : AppCompatActivity() {
         currentScore = preferences.getInt("currentScore", 0)
         currentDistance= preferences.getInt("currentDistance", 0)
         currentCalories= preferences.getInt("currentCalories", 0)
+        date = preferences.getString("date",null)
         best1 = preferences.getInt("best1", 0)
         best2 = preferences.getInt("best2", 0)
         best3 = preferences.getInt("best3", 0)
@@ -64,11 +66,11 @@ class ScoreActivity : AppCompatActivity() {
             editor.putInt("currentDistance", currentDistance)
             editor.apply()
         }
-        current_score !!.text = "Current Score: " + currentScore + ", " + "Calories:" + currentCalories + ", " +  "Distance:"+ currentDistance
+        current_score !!.text = "Current Score: $currentScore\n Calories:$currentCalories\n Distance:$currentDistance"
 
-        best1_score !!.text = "Best1: " + best1 + ", " + "Calories:" + currentCalories+ ", " + "Distance:"+ currentDistance
-        best2_score !!.text = "Best2: " + best2 + ", " + "Calories:" + currentCalories+ ", " + "Distance:"+ currentDistance
-        best3_score !!.text = "Best3: " + best3 + ", " + "Calories:" + currentCalories+ ", " + "Distance:"+ currentDistance
+        best1_score !!.text = "Date $date\n Best1: $best1\n Calories:$currentCalories\n Distance:$currentDistance"
+        best2_score !!.text = "Date $date\n Best2: $best2\n Calories:$currentCalories\n Distance:$currentDistance"
+        best3_score !!.text = "Date $date\n Best3: $best3\n Calories:$currentCalories\n Distance:$currentDistance"
     }
     override
     fun onBackPressed(){

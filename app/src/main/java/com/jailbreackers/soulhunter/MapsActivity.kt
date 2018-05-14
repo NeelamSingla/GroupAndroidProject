@@ -24,6 +24,7 @@ import android.view.View
 import android.widget.TextView
 import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.activity_maps.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 //Author Chaitali
@@ -42,7 +43,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     var scoreLabel: TextView?=null
     var distancelabel: TextView?=null
     var caloriesLabel:TextView?=null
-
+    val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+    val currentDate = sdf.format(Date())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
@@ -317,9 +319,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         //send the intent to display the score
         var preferences = getSharedPreferences("PREFS", 0)
         var editor = preferences.edit()
-        editor.putInt("lastScore", score.toInt() )
-        editor.putInt("lastDistance", distance.toInt() )
-        editor.putInt("lastCalories", calories.toInt() )
+        editor.putInt("currentScore", score.toInt() )
+        editor.putInt("currentDistance", distance.toInt() )
+        editor.putInt("currentCalories", calories.toInt() )
+        editor.putString("date", currentDate.toString())
         editor.commit()
     }
 
