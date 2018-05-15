@@ -306,7 +306,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 scoreLabel!!.setText(" Score : ${score} ")
                 coins[i].changeLocation(location, generate())
                 coins[i].generateValue()
-                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value!!} $ " , Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value!!.toInt()} $ " , Toast.LENGTH_LONG).show()
 
                 // remove from arraylist
 
