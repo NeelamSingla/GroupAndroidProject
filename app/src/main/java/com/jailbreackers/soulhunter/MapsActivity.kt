@@ -220,7 +220,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         Coin(
                                 (R.drawable.treasure_box)
                                 , "20 Dollar"
-                                , 10.0
+                                , 10
                                 ,  lat+ generate()
                                 ,  log+ generate()
                         )
@@ -232,7 +232,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Coin(
                         (R.drawable.treasure_box)
                         , "20 Dollar"
-                        , 60.0
+                        , 60
                         ,  lat + generate()
                         ,  log + generate()
                 )
@@ -244,7 +244,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Coin(
                         (R.drawable.treasure_box)
                         , "20 Dollar"
-                        , 125.0
+                        , 125
                         ,  lat + generate()
                         ,  log + generate()
                 )
@@ -306,7 +306,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 scoreLabel!!.setText(" Score : ${score} ")
                 coins[i].changeLocation(location, generate())
                 coins[i].generateValue()
-                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value!!.toInt()} $ " , Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value!!} $ " , Toast.LENGTH_LONG).show()
 
                 // remove from arraylist
 

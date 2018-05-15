@@ -7,14 +7,14 @@ class Coin {
 
     var image: Int? = null
     var description: String? = null
-    var value: Double? = null
+    var value: Int = 0
     var location: Location? = null
 
     var isCatch = false
 
     constructor(image: Int,
                 description: String,
-                value: Double = 10.0,
+                value: Int = 10,
                 lat: Double,
                 long: Double) {
 
@@ -35,7 +35,7 @@ class Coin {
     val p = Math.random()
     fun generateValue(){
         val p = Math.random()
-        this.value = 10*p
+        this.value = 10*p as Int
     }
 
 }
