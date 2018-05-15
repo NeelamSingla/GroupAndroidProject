@@ -14,7 +14,7 @@ class Coin {
 
     constructor(image: Int,
                 description: String,
-                value: Int = 10,
+                value: Int = 50,
                 lat: Double,
                 long: Double) {
 
@@ -24,9 +24,8 @@ class Coin {
         this.location = Location("coin")
         this.location!!.latitude = lat
         this.location!!.longitude = long
-
-
     }
+
    fun changeLocation  (location: Location,p:Double ){
        this.location!!.latitude =   location!!.latitude+p
        this.location!!.longitude = location!!.longitude+p

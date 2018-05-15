@@ -301,14 +301,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 // play the sound
                 sound!!.playHitSound()
+
+
+                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value} $ " , Toast.LENGTH_LONG).show()
                 // get the values( the points)
                 score = score + coins[i].value
                 scoreLabel!!.text = " Score : ${score} "
                 coins[i].changeLocation(location, generate())
-                coins[i].value=10
-                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value} $ " , Toast.LENGTH_LONG).show()
+                coins[i].generateValue()
 
-                // remove from arraylist
 
 
                 //   }
