@@ -32,9 +32,10 @@ class Coin {
 
    }
     var p = Math.random()
+
     fun generateValue(){
 
-        this.value = 100*p.toInt()
+        this.value = (100*p).toInt()
 
     }
 
