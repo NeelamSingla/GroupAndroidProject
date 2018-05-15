@@ -32,10 +32,11 @@ class Coin {
        this.location!!.longitude = location!!.longitude+p
 
    }
-    val p = Math.random()
+    var p = Math.random()
     fun generateValue(){
-        val p = Math.random()
-        this.value = 10*p as Int
+
+        this.value = 100*p.toInt()
+
     }
 
 }

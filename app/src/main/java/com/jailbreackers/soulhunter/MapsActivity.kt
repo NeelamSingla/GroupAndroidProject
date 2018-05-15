@@ -57,9 +57,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         distancelabel=findViewById<View>(R.id.distancelabel) as TextView
         caloriesLabel= findViewById<View>(R.id.calories)as TextView
 
-        scoreLabel!!.setText(" Score : 00 ")
-        distancelabel!!.setText(" Distance : 00 m ")
-        caloriesLabel!!.setText("Calories: 00")
+        scoreLabel!!.text = " Score : 00 "
+        distancelabel!!.text = " Distance : 00 m "
+        caloriesLabel!!.text = "Calories: 00"
 
         sound = SoundPlayer(this)
 
@@ -73,9 +73,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         if (ActivityCompat.checkSelfPermission(this@MapsActivity, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED ) {
-            mMap.setMyLocationEnabled(true)
-            mMap.getUiSettings().setMyLocationButtonEnabled(true)
-            mMap.getUiSettings().setZoomControlsEnabled(true)
+            mMap.isMyLocationEnabled = true
+            mMap.uiSettings.isMyLocationButtonEnabled = true
+            mMap.uiSettings.isZoomControlsEnabled = true
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
@@ -146,7 +146,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
             latitude = location!!.latitude
-            longitide = location!!.longitude
+            longitide = location.longitude
 
             displayCoin(location)
 
@@ -163,7 +163,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val playerMarker = Bitmap.createScaledBitmap(b, width, height, false)
 
             //Put marker on map
-            mMaker = mMap!!.addMarker(MarkerOptions()
+            mMaker = mMap.addMarker(MarkerOptions()
                     .position(latLng)
                     .title("You Are Here !!!!")
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.runner))
@@ -256,7 +256,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     var distance: Float = 0f
     var calories: Float = 0f
     var isTheFirstTime = true
-    var score: Double = 0.0
+    var score: Int=0
 
     fun displayCoin(location: Location) {
 
@@ -267,8 +267,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         distance = distance+location.distanceTo(oldLocation)
         calories = (distance * 15/320)
-        distancelabel!!.setText(" Distance:${distance.toInt()} m")
-        caloriesLabel!!.setText("Calories: ${  calories.toInt()   } ")
+        distancelabel!!.text = " Distance:${distance.toInt()} m"
+        caloriesLabel!!.text = "Calories: ${  calories.toInt()   } "
         //update the textview
 
 
@@ -298,15 +298,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
             } else {
                 // catch it
-                //   coins[i].isCatch = true
+
                 // play the sound
                 sound!!.playHitSound()
                 // get the values( the points)
-                score = score + coins[i].value!!
-                scoreLabel!!.setText(" Score : ${score} ")
+                score = score + coins[i].value
+                scoreLabel!!.text = " Score : ${score} "
                 coins[i].changeLocation(location, generate())
-                coins[i].generateValue()
-                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value!!} $ " , Toast.LENGTH_LONG).show()
+                coins[i].value=10
+                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value} $ " , Toast.LENGTH_LONG).show()
 
                 // remove from arraylist
 
@@ -352,6 +352,6 @@ fun onBackPressed(){
 
 }
     fun finish(view:View) {
-        startActivity(Intent(getApplicationContext(), ScoreActivity::class.java))
+        startActivity(Intent(applicationContext, ScoreActivity::class.java))
     }
 }

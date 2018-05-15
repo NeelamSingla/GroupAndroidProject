@@ -114,7 +114,11 @@ class ScoreActivity : AppCompatActivity() {
         editor.putInt("dis3", dis3)
         editor.putInt("currentCalories", currentCalories)
         editor.putInt("currentDistance", currentDistance)
-        editor.putInt("currentDistance", currentScore)
+        editor.putInt("currentScore", currentScore)
+        editor.putString("date1",date1)
+        editor.putString("date2",date2)
+        editor.putString("date3",date3)
+
         editor.apply()
 
 
