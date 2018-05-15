@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 
+// @ Author Qaisar Mukhtar
+// @ co- Author Muhammad YSE
 class ScoreActivity : AppCompatActivity() {
 
     internal var current_score: TextView? = null
@@ -122,11 +124,11 @@ class ScoreActivity : AppCompatActivity() {
         editor.apply()
 
 
-        current_score!!.text = "Current Score: $currentScore\n Calories:$currentCalories\n Distance:$currentDistance"
+        current_score!!.text = "Current Score: $currentScore points\n Calories: $currentCalories cal\n Distance: $currentDistance meters"
 
-        best1_score!!.text = "Date $date1\n Best1: $best1\n Calories:$cal1\n Distance:$dis1"
-        best2_score!!.text = "Date $date2\n Best2: $best2\n Calories:$cal2\n Distance:$dis2"
-        best3_score!!.text = "Date $date3\n Best3: $best3\n Calories:$cal3\n Distance:$dis3"
+        best1_score!!.text = "Date $date1\n Best1: $best1 points\n Calories: $cal1 cal\n Distance: $dis1 meters"
+        best2_score!!.text = "Date $date2\n Best2: $best2 points\n Calories: $cal2 cal \n Distance: $dis2 meters"
+        best3_score!!.text = "Date $date3\n Best3: $best3 points\n Calories: $cal3 cal \n Distance: $dis3 meters"
     }
 
     override

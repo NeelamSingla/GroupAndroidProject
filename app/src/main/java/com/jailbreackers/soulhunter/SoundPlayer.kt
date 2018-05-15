@@ -5,6 +5,8 @@ import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Build
+
+// @ Author Qaisar Mukhtar
 class SoundPlayer(context:Context) {
     private var audioAttributes: AudioAttributes? = null
     internal val SOUND_POOL_MAX = 2
