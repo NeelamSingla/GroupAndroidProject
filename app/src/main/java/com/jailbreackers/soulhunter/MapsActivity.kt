@@ -219,7 +219,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                         Coin(
                                 (R.drawable.treasure_box)
-                                , "20 Dollar"
+                                , "20 points"
                                 , 10
                                 ,  lat+ generate()
                                 ,  log+ generate()
@@ -231,7 +231,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 Coin(
                         (R.drawable.treasure_box)
-                        , "20 Dollar"
+                        , "20 points"
                         , 60
                         ,  lat + generate()
                         ,  log + generate()
@@ -243,7 +243,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 Coin(
                         (R.drawable.treasure_box)
-                        , "20 Dollar"
+                        , "20 points"
                         , 125
                         ,  lat + generate()
                         ,  log + generate()
@@ -265,10 +265,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             oldLocation=location
             isTheFirstTime = false
         }
-        distance = distance+location.distanceTo(oldLocation)
+        distance += location.distanceTo(oldLocation)
         calories = (distance * 15/320)
-        distancelabel!!.text = " Distance:${distance.toInt()} m"
-        caloriesLabel!!.text = "Calories: ${  calories.toInt()   } "
+        distancelabel!!.text = " Distance:${distance.toInt()} "
+        caloriesLabel!!.text = "Calories: ${calories.toInt()} "
         //update the textview
 
 
@@ -292,7 +292,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 mMap.addMarker(
                         MarkerOptions()
                                 .position(coinLocation)
-                                .title(coins[i].value.toString() + " $")
+                                .title(coins[i].value.toString() + " points")
                                 .snippet(coins[i].description)
                                 .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
                 // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
@@ -303,9 +303,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 sound!!.playHitSound()
 
 
-                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value} $ " , Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value} points " , Toast.LENGTH_LONG).show()
                 // get the values( the points)
-                score = score + coins[i].value
+                score += coins[i].value
                 scoreLabel!!.text = " Score : ${score} "
                 coins[i].changeLocation(location, generate())
                 coins[i].generateValue()
@@ -324,7 +324,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         editor.putInt("currentDistance", distance.toInt() )
         editor.putInt("currentCalories", (distance * 15/320).toInt() )
         editor.putString("date", currentDate.toString())
-        editor.commit()
+        editor.apply()
     }
 
 

@@ -106,9 +106,9 @@ class ScoreActivity : AppCompatActivity() {
 
         val editor = preferences.edit()
         editor.putInt("best3", best3)
-        editor.putInt("best2", best2)
-        editor.putInt("best1", best1)
-        editor.putInt("cal1", cal1)
+                .putInt("best2", best2)
+                .putInt("best1", best1)
+                .putInt("cal1", cal1)
         editor.putInt("cal2", cal2)
         editor.putInt("cal3", cal3)
         editor.putInt("dis1", dis1)
@@ -124,7 +124,7 @@ class ScoreActivity : AppCompatActivity() {
         editor.apply()
 
 
-        current_score!!.text = "Current Score: $currentScore points\n Calories: $currentCalories cal\n Distance: $currentDistance meters"
+        current_score!!.text = "Current Score: ${currentScore} points\n Calories: ${currentCalories} cal\n Distance: ${currentDistance} meters"
 
         best1_score!!.text = "Date $date1\n Best Score: $best1 points\n Calories: $cal1 cal\n Distance: $dis1 meters"
         best2_score!!.text = "Date $date2\n 2nd Best Score: $best2 points\n Calories: $cal2 cal \n Distance: $dis2 meters"
