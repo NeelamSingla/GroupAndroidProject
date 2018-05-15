@@ -12,7 +12,7 @@ class ScoreActivity : AppCompatActivity() {
     internal var best1_score: TextView? = null
     internal var best2_score: TextView? = null
     internal var best3_score: TextView? = null
-    internal var date: String =""
+    internal var date: String = ""
     internal var currentScore: Int = 0
     internal var currentDistance: Int = 0
     internal var currentCalories: Int = 0
@@ -25,6 +25,9 @@ class ScoreActivity : AppCompatActivity() {
     internal var dis1: Int = 0
     internal var dis2: Int = 0
     internal var dis3: Int = 0
+    internal var date1: String = ""
+    internal var date2: String = ""
+    internal var date3: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_score)
@@ -46,6 +49,9 @@ class ScoreActivity : AppCompatActivity() {
         dis1 = preferences.getInt("dis1", 0)
         dis2 = preferences.getInt("dis2", 0)
         dis3 = preferences.getInt("dis3", 0)
+        date1=preferences.getString("date1","")
+        date2=preferences.getString("date2","")
+        date3=preferences.getString("date3","")
 
         if (currentScore > best1) {
 
@@ -54,47 +60,40 @@ class ScoreActivity : AppCompatActivity() {
             best2 = best1
             best1 = currentScore
 
-            dis3=dis2
-            dis2=dis1
-            dis1=currentDistance
+            dis3 = dis2
+            dis2 = dis1
+            dis1 = currentDistance
 
-            cal3=cal2
-            cal2=cal1
-            cal1=currentCalories
+            cal3 = cal2
+            cal2 = cal1
+            cal1 = currentCalories
 
+            date3 = date2
+            date2 = date1
+            date1 = date
 
-
-
-
-
-
-            /* val editor = preferences.edit()
-            editor.putInt("best2", best2)
-            editor.putInt("best1", best1)
-            editor.putInt("currentCalories", currentCalories)
-            editor.putInt("currentDistance", currentDistance)
-            editor.apply()*/
         } else {
 
             if (currentScore > best2) {
                 best3 = best2
                 best2 = currentScore
 
-                dis3=dis2
-                dis2=currentDistance
+                dis3 = dis2
+                dis2 = currentDistance
 
-                cal3=cal2
-                cal2=currentCalories
+                cal3 = cal2
+                cal2 = currentCalories
+
+                date3 = date2
+                date2 = date
 
 
             } else {
                 if (currentScore > best3) {
                     best3 = currentScore
-
-
-                    dis3=currentDistance
-
-                    cal3==currentCalories
+                    dis3 = currentDistance
+                    cal3 == currentCalories
+                    date3 = date
                 }
 
             }
@@ -106,32 +105,35 @@ class ScoreActivity : AppCompatActivity() {
         val editor = preferences.edit()
         editor.putInt("best3", best3)
         editor.putInt("best2", best2)
-        editor.putInt("best2", best3)
+        editor.putInt("best1", best1)
         editor.putInt("cal1", cal1)
         editor.putInt("cal2", cal2)
         editor.putInt("cal3", cal3)
         editor.putInt("dis1", dis1)
         editor.putInt("dis2", dis2)
         editor.putInt("dis3", dis3)
-         editor.putInt("currentCalories", currentCalories)
-            editor.putInt("currentDistance", currentDistance)
-            editor.apply()
+        editor.putInt("currentCalories", currentCalories)
+        editor.putInt("currentDistance", currentDistance)
+        editor.putInt("currentDistance", currentScore)
+        editor.apply()
 
 
-        current_score !!.text = "Current Score: $currentScore\n Calories:$currentCalories\n Distance:$currentDistance"
+        current_score!!.text = "Current Score: $currentScore\n Calories:$currentCalories\n Distance:$currentDistance"
 
-        best1_score !!.text = "Date $date\n Best1: $best1\n Calories:$cal1\n Distance:$dis1"
-        best2_score !!.text = "Date $date\n Best2: $best2\n Calories:$cal2\n Distance:$dis2"
-        best3_score !!.text = "Date $date\n Best3: $best3\n Calories:$cal3\n Distance:$dis3"
+        best1_score!!.text = "Date $date1\n Best1: $best1\n Calories:$cal1\n Distance:$dis1"
+        best2_score!!.text = "Date $date2\n Best2: $best2\n Calories:$cal2\n Distance:$dis2"
+        best3_score!!.text = "Date $date3\n Best3: $best3\n Calories:$cal3\n Distance:$dis3"
     }
+
     override
-    fun onBackPressed(){
+    fun onBackPressed() {
         var intent = Intent(applicationContext, HomeMenuActivity::class.java)
         startActivity(intent)
         finish()
 
-}
-    fun play(view:View) {
+    }
+
+    fun play(view: View) {
         startActivity(Intent(getApplicationContext(), MapsActivity::class.java))
     }
 }
