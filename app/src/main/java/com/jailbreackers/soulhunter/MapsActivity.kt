@@ -218,7 +218,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         coins.add(
 
                         Coin(
-                                (R.drawable.coin_icon)
+                                (R.drawable.treasure_box)
                                 , "20 Dollar"
                                 , 10.0
                                 ,  lat+ generate()
@@ -230,7 +230,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         coins.add(
 
                 Coin(
-                        (R.drawable.coin_icon)
+                        (R.drawable.treasure_box)
                         , "20 Dollar"
                         , 60.0
                         ,  lat + generate()
@@ -242,7 +242,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         coins.add(
 
                 Coin(
-                        (R.drawable.coin_icon)
+                        (R.drawable.treasure_box)
                         , "20 Dollar"
                         , 125.0
                         ,  lat + generate()
@@ -275,7 +275,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         oldLocation=location
 
-        val bitMapDraw = resources.getDrawable(R.drawable.coin_icon) as BitmapDrawable
+        val bitMapDraw = resources.getDrawable(R.drawable.treasure_box) as BitmapDrawable
         val b = bitMapDraw.bitmap
         val playerMarker = Bitmap.createScaledBitmap(b, 180, 180, false)
 
