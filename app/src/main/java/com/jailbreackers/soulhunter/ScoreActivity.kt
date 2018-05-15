@@ -126,9 +126,9 @@ class ScoreActivity : AppCompatActivity() {
 
         current_score!!.text = "Current Score: $currentScore points\n Calories: $currentCalories cal\n Distance: $currentDistance meters"
 
-        best1_score!!.text = "Date $date1\n Best1: $best1 points\n Calories: $cal1 cal\n Distance: $dis1 meters"
-        best2_score!!.text = "Date $date2\n Best2: $best2 points\n Calories: $cal2 cal \n Distance: $dis2 meters"
-        best3_score!!.text = "Date $date3\n Best3: $best3 points\n Calories: $cal3 cal \n Distance: $dis3 meters"
+        best1_score!!.text = "Date $date1\n Best Score: $best1 points\n Calories: $cal1 cal\n Distance: $dis1 meters"
+        best2_score!!.text = "Date $date2\n 2nd Best Score: $best2 points\n Calories: $cal2 cal \n Distance: $dis2 meters"
+        best3_score!!.text = "Date $date3\n 3rd Best Score: $best3 points\n Calories: $cal3 cal \n Distance: $dis3 meters"
     }
 
     override
