@@ -5,4 +5,8 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="score">Score</string>
+    <string name="manual">Gold Runner is a fun game, ideal for runners. The user collects coins from random locations on the map during
+        shortest time and time as possible. The main activity displays distance covered, calories burnt and points collected.
+        The user can see the best of three scores along with date and time.\n \nFirst release : May 15,2018 \nPlatform : Android Studio \n \nDevelopers: Chaitali Deore, Mohamad Yassin, Qaisar Mukhtar, Neelam Singla,
+        Michal Szukala, Manoj Kumar Arya, Pradeep Agrawal, Yannick Ngabirano, Nisreen Alhmaedy.</string>
 </resources>
