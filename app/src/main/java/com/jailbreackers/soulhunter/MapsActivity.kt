@@ -321,7 +321,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         var editor = preferences.edit()
         editor.putInt("currentScore", score.toInt() )
         editor.putInt("currentDistance", distance.toInt() )
-        editor.putInt("currentCalories", calories.toInt() )
+        editor.putInt("currentCalories", (distance * 15/320).toInt() )
         editor.putString("date", currentDate.toString())
         editor.commit()
     }
