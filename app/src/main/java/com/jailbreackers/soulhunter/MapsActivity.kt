@@ -295,7 +295,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         MarkerOptions()
                                 .position(coinLocation)
                                 .title(coins[i].value.toString() + " points")
-                                .snippet(coins[i].description)
+                               // .snippet(coins[i].description)
                                 .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
                 // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
             } else {
