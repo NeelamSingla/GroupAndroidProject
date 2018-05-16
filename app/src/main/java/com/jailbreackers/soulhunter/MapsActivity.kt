@@ -15,8 +15,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
-import android.widget.Toast
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -25,16 +23,18 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.google.android.gms.maps.model.*
-import kotlinx.android.synthetic.main.activity_maps.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 @SuppressLint("ByteOrderMark")
+/**
+ *  Google Maps Android API v2, it embed maps into an activity as a fragment with a simple XML snippet.
+ */
+
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-
     lateinit var locationManager: LocationManager
     private val LOCATION_REQUEST_CODE = 101
     private var mMaker: Marker? = null
@@ -67,7 +67,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    //Runtime Permission Check
+    /**
+     * this function check the permission for using GPS and if the permission is not granted it request it again
+     */
     private fun checkPermission() {
         val getUserCurrentLocation: GetUserCurrentLocation
 
@@ -102,6 +104,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+    /**
+     * Called when the map is ready to be used.
+     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         try {
@@ -132,7 +138,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             longitide = 18.061525
         }
 
-
+        /**
+         * this function is called everytime the location changes
+         */
         override fun onLocationChanged(location: Location?) {
 
 
@@ -186,15 +194,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             //Show Location Details
             //     Toast.makeText(this@MapsActivity," Current Location Is-"+ cityName , Toast.LENGTH_SHORT).show()
         }
-
+        /**
+         *wthis method called when the GPS is turned off or on
+         */
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
 
         }
-
+        /**
+         *wthis mathed called when the GPS is turned on
+         */
         override fun onProviderEnabled(provider: String?) {
 
         }
-
+        /**
+         *wthis mathed called when the GPS is turned off
+         */
         override fun onProviderDisabled(provider: String?) {
 
         }
@@ -204,7 +218,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     var coins = ArrayList<Coin>()
     lateinit var oldLocation: Location
 
-
+    /**
+     * this function create a list of boxes(coins)
+     */
     fun createCoins(location: Location) {
         // in the next step we should get the marker location and create the location of the coins close to marker location
         var lat: Double = location.latitude
@@ -253,7 +269,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     var calories: Float = 0f
     var isTheFirstTime = true
     var score: Int = 0
-
+    /**
+     * shows the boxes on the coin ,and catching the boxes
+     */
     fun displayCoin(location: Location) {
 
         if (isTheFirstTime) {
@@ -325,7 +343,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         editor.apply()
     }
 
-
+    /**
+     * generate a decimal number that should add to the location to display the boxes around the player
+     */
     fun generate(): Double {
         var p = Math.random()
 
@@ -340,7 +360,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-
+    /**
+     *
+     */
     override
     fun onBackPressed() {
         // var intent = Intent(applicationContext, HomeMenuActivity::class.java)
