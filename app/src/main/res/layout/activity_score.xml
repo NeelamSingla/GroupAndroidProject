@@ -37,7 +37,7 @@
         android:layout_marginTop="365dp"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:onClick="play"
-        android:text="Play"
+        android:text="Play Again"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
