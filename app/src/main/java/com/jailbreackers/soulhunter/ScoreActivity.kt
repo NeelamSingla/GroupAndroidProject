@@ -6,7 +6,16 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 
-
+/**
+ * @ class ScoreActivity, is about DEst score display
+ * @ pram best1_score
+ * @ pram best2_score
+ * @ pram best3_score
+ * @ pram date
+ * @ pram Distance
+ * @ pram Calories
+ *
+ */
 class ScoreActivity : AppCompatActivity() {
 
     internal var current_score: TextView? = null
@@ -53,7 +62,9 @@ class ScoreActivity : AppCompatActivity() {
         date1 = preferences.getString("date1", "")
         date2 = preferences.getString("date2", "")
         date3 = preferences.getString("date3", "")
-
+        /**
+         * Check for best scores and assign date, calories and distance
+         */
         if (currentScore > best1) {
 
 
@@ -101,13 +112,15 @@ class ScoreActivity : AppCompatActivity() {
 
 
         }
-
+        /**
+         * Editor for SharedPreferences
+         */
 
         val editor = preferences.edit()
         editor.putInt("best3", best3)
-                .putInt("best2", best2)
-                .putInt("best1", best1)
-                .putInt("cal1", cal1)
+        editor.putInt("best2", best2)
+        editor.putInt("best1", best1)
+        editor.putInt("cal1", cal1)
         editor.putInt("cal2", cal2)
         editor.putInt("cal3", cal3)
         editor.putInt("dis1", dis1)
@@ -129,14 +142,20 @@ class ScoreActivity : AppCompatActivity() {
         best2_score!!.text = "Date $date2\n 2nd Best Score: $best2 points\n Calories: $cal2 cal \n Distance: $dis2 meters"
         best3_score!!.text = "Date $date3\n 3rd Best Score: $best3 points\n Calories: $cal3 cal \n Distance: $dis3 meters"
     }
+    /**
+     * function for backPress
+     */
 
-    override
-    fun onBackPressed() {
 
-        finish()
+     fun quit(view: View) {
+
+        startActivity(Intent(getApplicationContext(), HomeMenuActivity::class.java))
 
     }
 
+    /**
+     * function for play again
+     */
     fun play(view: View) {
         startActivity(Intent(getApplicationContext(), MapsActivity::class.java))
     }

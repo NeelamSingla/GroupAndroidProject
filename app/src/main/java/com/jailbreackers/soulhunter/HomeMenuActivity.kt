@@ -9,8 +9,13 @@ import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import com.jailbreackers.soulhunter.R.id.*
 import kotlinx.android.synthetic.main.activity_home_menu.*
 
+/**
+ * @ class HomeMenuActivity, is about User interface
+ *
+ */
 class HomeMenuActivity : AppCompatActivity() {
     private val ADD_MAP = 1
     private val ADD_HELP = 2
@@ -36,7 +41,7 @@ class HomeMenuActivity : AppCompatActivity() {
     }
 
 
-    override
+    /*override
     fun onBackPressed() {
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setTitle("Are You Sure You Want To Exit?")
@@ -51,6 +56,6 @@ class HomeMenuActivity : AppCompatActivity() {
 
         dialogBuilder.create().show()
 
-    }
+    }*/
 
 }

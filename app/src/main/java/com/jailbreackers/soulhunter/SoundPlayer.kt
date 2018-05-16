@@ -6,8 +6,17 @@ import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Build
 
-// @ Author Qaisar Mukhtar
+/**
+ * @ Author Qaisar Mukhtar
+ *
+ * Class SoundPlayer for audio sound
+ */
 class SoundPlayer(context:Context) {
+    companion object {
+        private lateinit var soundPool:SoundPool
+        private var hitSound:Int = 0
+
+    }
     private var audioAttributes: AudioAttributes? = null
     internal val SOUND_POOL_MAX = 2
     init{
@@ -29,12 +38,12 @@ class SoundPlayer(context:Context) {
         hitSound = soundPool.load(context, R.raw.coin, 1)
 
     }
+
+    /**
+     * function to play sound when got hit
+     */
     fun playHitSound() {
         soundPool.play(hitSound, 1.0f, 1.0f, 1, 0, 1.0f)
     }
-    companion object {
-        private lateinit var soundPool:SoundPool
-        private var hitSound:Int = 0
 
-    }
 }

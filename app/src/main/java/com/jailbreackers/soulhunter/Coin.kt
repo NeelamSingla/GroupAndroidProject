@@ -3,7 +3,11 @@ package com.jailbreackers.soulhunter
 import android.location.Location
 
 /**
- * This class represents the treasure-box
+ * @ class Coin, is about treasure-box
+ * @ pram image
+ * @ pram value
+ * @ pram location
+ * @ description
  *
  */
 

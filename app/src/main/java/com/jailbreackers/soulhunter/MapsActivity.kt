@@ -195,7 +195,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             //     Toast.makeText(this@MapsActivity," Current Location Is-"+ cityName , Toast.LENGTH_SHORT).show()
         }
         /**
-         *wthis method called when the GPS is turned off or on
+         * this method called when the GPS is turned off or on
          */
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
 
@@ -207,7 +207,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         }
         /**
-         *wthis mathed called when the GPS is turned off
+         * this mathed called when the GPS is turned off
          */
         override fun onProviderDisabled(provider: String?) {
 
@@ -281,9 +281,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         distance += location.distanceTo(oldLocation)
         calories = (distance * 15 / 320)
+        /**
+         * update the TextView for distance and calories
+         */
+
+
         distancelabel!!.text = " Distance:${distance.toInt()} "
         caloriesLabel!!.text = "Calories: ${calories.toInt()} "
-        //update the textview
+
+
 
 
         oldLocation = location
@@ -320,15 +326,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 dialogBuilder.setPositiveButton("OK") { dialogInterface: DialogInterface, i: Int -> }
                 dialogBuilder.create().show()
+
                 //Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value} points " , Toast.LENGTH_LONG).show()
                 // get the values( the points)
+
                 score += coins[i].value
                 scoreLabel!!.text = " Score : ${score} "
                 coins[i].changeLocation(location, generate())
                 coins[i].generateValue()
 
-
-                //   }
 
             }
 
@@ -361,17 +367,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     /**
-     *
+     * backPress function
      */
     override
     fun onBackPressed() {
-        // var intent = Intent(applicationContext, HomeMenuActivity::class.java)
-        //startActivity(intent)
-        finish()
+        var intent = Intent(applicationContext, HomeMenuActivity::class.java)
+        startActivity(intent)
+
 
     }
-
+    /**
+     * function to finish activity
+     */
     fun finish(view: View) {
-        startActivity(Intent(applicationContext, HomeMenuActivity::class.java))
+        startActivity(Intent(applicationContext, ScoreActivity::class.java))
     }
 }
