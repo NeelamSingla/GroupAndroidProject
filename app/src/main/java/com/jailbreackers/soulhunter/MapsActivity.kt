@@ -353,12 +353,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 override
 fun onBackPressed(){
-    var intent = Intent(applicationContext, HomeMenuActivity::class.java)
-    startActivity(intent)
+   // var intent = Intent(applicationContext, HomeMenuActivity::class.java)
+    //startActivity(intent)
     finish()
 
 }
     fun finish(view:View) {
-        startActivity(Intent(applicationContext, ScoreActivity::class.java))
+        startActivity(Intent(applicationContext, HomeMenuActivity::class.java))
     }
 }
