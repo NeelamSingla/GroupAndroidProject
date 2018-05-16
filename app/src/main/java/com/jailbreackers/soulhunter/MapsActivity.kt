@@ -4,6 +4,7 @@ import android.location.Geocoder
 import android.location.Address
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
@@ -13,6 +14,7 @@ import android.location.*
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
+import android.support.v7.app.AlertDialog
 import android.widget.Toast
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -302,8 +304,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 // play the sound
                 sound!!.playHitSound()
 
+                val dialogBuilder= AlertDialog.Builder(this)
+                dialogBuilder.setTitle("Congratulations!! You Win ${coins[i].value} \$")
 
-                Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value} points " , Toast.LENGTH_LONG).show()
+                dialogBuilder.setPositiveButton("OK"){ dialogInterface: DialogInterface, i: Int -> }
+                dialogBuilder.create().show()
+                //Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value} points " , Toast.LENGTH_LONG).show()
                 // get the values( the points)
                 score += coins[i].value
                 scoreLabel!!.text = " Score : ${score} "
