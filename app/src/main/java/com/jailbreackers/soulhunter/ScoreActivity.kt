@@ -133,8 +133,7 @@ class ScoreActivity : AppCompatActivity() {
 
     override
     fun onBackPressed() {
-        var intent = Intent(applicationContext, HomeMenuActivity::class.java)
-        startActivity(intent)
+
         finish()
 
     }
