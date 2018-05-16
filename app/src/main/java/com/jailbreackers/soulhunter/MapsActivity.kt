@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.activity_maps.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-//Author Chaitali
+
 @SuppressLint("ByteOrderMark")
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
