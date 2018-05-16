@@ -1,11 +1,14 @@
 package com.jailbreackers.soulhunter
 
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
+import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home_menu.*
 
 class HomeMenuActivity : AppCompatActivity() {
@@ -30,6 +33,24 @@ fab_score.setOnClickListener(){
             val intent = Intent(this, HelpInstructionsActivity::class.java)
             startActivityForResult(intent, ADD_HELP)
         }
+    }
+
+
+    override
+    fun onBackPressed(){
+        val dialogBuilder= AlertDialog.Builder(this)
+        dialogBuilder.setTitle("Are You Sure You Want To Exit?")
+        //dialogBuilder.setMessage("Kotlin is awesome")
+        dialogBuilder.setPositiveButton("Yes"){ dialogInterface: DialogInterface, i: Int ->
+            System.exit(0)
+        }
+        dialogBuilder.setNegativeButton("No"){ dialogInterface: DialogInterface, i: Int ->
+            Toast.makeText(this,"Press Play ",Toast.LENGTH_SHORT).show()
+
+        }
+
+        dialogBuilder.create().show()
+
     }
 
 }
