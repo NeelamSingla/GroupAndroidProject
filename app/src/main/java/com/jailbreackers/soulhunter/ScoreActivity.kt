@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 
-// @ Author Qaisar Mukhtar
-// @ co- Author Muhammad YSE
+
 class ScoreActivity : AppCompatActivity() {
 
     internal var current_score: TextView? = null
@@ -51,9 +50,9 @@ class ScoreActivity : AppCompatActivity() {
         dis1 = preferences.getInt("dis1", 0)
         dis2 = preferences.getInt("dis2", 0)
         dis3 = preferences.getInt("dis3", 0)
-        date1=preferences.getString("date1","")
-        date2=preferences.getString("date2","")
-        date3=preferences.getString("date3","")
+        date1 = preferences.getString("date1", "")
+        date2 = preferences.getString("date2", "")
+        date3 = preferences.getString("date3", "")
 
         if (currentScore > best1) {
 
@@ -117,9 +116,9 @@ class ScoreActivity : AppCompatActivity() {
         editor.putInt("currentCalories", currentCalories)
         editor.putInt("currentDistance", currentDistance)
         editor.putInt("currentScore", currentScore)
-        editor.putString("date1",date1)
-        editor.putString("date2",date2)
-        editor.putString("date3",date3)
+        editor.putString("date1", date1)
+        editor.putString("date2", date2)
+        editor.putString("date3", date3)
 
         editor.apply()
 

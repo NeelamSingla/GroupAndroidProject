@@ -33,18 +33,18 @@ import java.util.*
 @SuppressLint("ByteOrderMark")
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var  mMap: GoogleMap
+    private lateinit var mMap: GoogleMap
 
     lateinit var locationManager: LocationManager
     private val LOCATION_REQUEST_CODE = 101
-    private var mMaker: Marker?=null
+    private var mMaker: Marker? = null
 
     private var sound: SoundPlayer? = null
 
     @SuppressLint("MissingPermission")
-    var scoreLabel: TextView?=null
-    var distancelabel: TextView?=null
-    var caloriesLabel:TextView?=null
+    var scoreLabel: TextView? = null
+    var distancelabel: TextView? = null
+    var caloriesLabel: TextView? = null
     val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
     val currentDate = sdf.format(Date())
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,9 +55,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        scoreLabel=findViewById<View>(R.id.scoreLabel) as TextView
-        distancelabel=findViewById<View>(R.id.distancelabel) as TextView
-        caloriesLabel= findViewById<View>(R.id.calories)as TextView
+        scoreLabel = findViewById<View>(R.id.scoreLabel) as TextView
+        distancelabel = findViewById<View>(R.id.distancelabel) as TextView
+        caloriesLabel = findViewById<View>(R.id.calories) as TextView
 
         scoreLabel!!.text = " Score : 00 "
         distancelabel!!.text = " Distance : 00 m "
@@ -74,7 +74,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         getUserCurrentLocation = GetUserCurrentLocation()
 
         if (ActivityCompat.checkSelfPermission(this@MapsActivity, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED ) {
+                PackageManager.PERMISSION_GRANTED) {
             mMap.isMyLocationEnabled = true
             mMap.uiSettings.isMyLocationButtonEnabled = true
             mMap.uiSettings.isZoomControlsEnabled = true
@@ -83,7 +83,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     LocationManager.GPS_PROVIDER,
                     3,
                     5f,
-                    getUserCurrentLocation )
+                    getUserCurrentLocation)
         } else {
             ActivityCompat.requestPermissions(this@MapsActivity,
                     arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION),
@@ -104,45 +104,39 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-       try
-        {
+        try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
             val success = googleMap.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(
                             this, R.raw.mapstyle))
-            if (!success)
-            {
-                Log.e("error","Style parsing failed.")
+            if (!success) {
+                Log.e("error", "Style parsing failed.")
             }
-        }
-        catch (e: Resources.NotFoundException) {
+        } catch (e: Resources.NotFoundException) {
             Log.e("error", "Can't find style. Error: ", e)
         }
         checkPermission()
     }
 
 
+    inner class GetUserCurrentLocation : LocationListener {
 
-    inner class GetUserCurrentLocation:LocationListener {
-
-        var latitude : Double = 0.toDouble()
+        var latitude: Double = 0.toDouble()
         var longitide: Double = 0.toDouble()
-       // Latitude: N 59° 19' 58.0372" | Longitude: E 18° 3' 52.1572"
+        // Latitude: N 59° 19' 58.0372" | Longitude: E 18° 3' 52.1572"
 
-        constructor()
-        {
+        constructor() {
 
-            latitude=59.331210
-            longitide=18.061525
+            latitude = 59.331210
+            longitide = 18.061525
         }
 
 
         override fun onLocationChanged(location: Location?) {
 
 
-            if(mMaker!=null)
-            {
+            if (mMaker != null) {
                 mMap.clear()
 
             }
@@ -151,7 +145,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             longitide = location.longitude
 
             displayCoin(location)
-
 
 
             val latLng = LatLng(latitude, longitide)
@@ -180,18 +173,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
                     2000, null)
 
-           // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,12f))
+            // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,12f))
 
             //Get Location Details
             val geocoder = Geocoder(this@MapsActivity)
             // Address found using the Geocoder.
             var addresses: List<Address> = emptyList()
-            addresses = geocoder.getFromLocation(latitude,longitide,1)
+            addresses = geocoder.getFromLocation(latitude, longitide, 1)
 
             val cityName = addresses[0].getAddressLine(0)
 
             //Show Location Details
-       //     Toast.makeText(this@MapsActivity," Current Location Is-"+ cityName , Toast.LENGTH_SHORT).show()
+            //     Toast.makeText(this@MapsActivity," Current Location Is-"+ cityName , Toast.LENGTH_SHORT).show()
         }
 
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
@@ -214,18 +207,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun createCoins(location: Location) {
         // in the next step we should get the marker location and create the location of the coins close to marker location
-        var lat:Double=location.latitude
-        var log:Double=location.longitude
+        var lat: Double = location.latitude
+        var log: Double = location.longitude
 
         coins.add(
 
-                        Coin(
-                                (R.drawable.treasure_box)
-                                , "20 points"
-                                , 10
-                                ,  lat+ generate()
-                                ,  log+ generate()
-                        )
+                Coin(
+                        (R.drawable.treasure_box)
+                        , "20 points"
+                        , 10
+                        , lat + generate()
+                        , log + generate()
+                )
 
 
         )
@@ -235,8 +228,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         (R.drawable.treasure_box)
                         , "20 points"
                         , 60
-                        ,  lat + generate()
-                        ,  log + generate()
+                        , lat + generate()
+                        , log + generate()
                 )
 
 
@@ -247,35 +240,35 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         (R.drawable.treasure_box)
                         , "20 points"
                         , 125
-                        ,  lat + generate()
-                        ,  log + generate()
+                        , lat + generate()
+                        , log + generate()
                 )
 
 
         )
 
     }
+
     var distance: Float = 0f
     var calories: Float = 0f
     var isTheFirstTime = true
-    var score: Int=0
+    var score: Int = 0
 
     fun displayCoin(location: Location) {
 
         if (isTheFirstTime) {
             createCoins(location)
-            oldLocation=location
+            oldLocation = location
             isTheFirstTime = false
         }
         distance += location.distanceTo(oldLocation)
-        calories = (distance * 15/320)
+        calories = (distance * 15 / 320)
         distancelabel!!.text = " Distance:${distance.toInt()} "
         caloriesLabel!!.text = "Calories: ${calories.toInt()} "
         //update the textview
 
 
-
-        oldLocation=location
+        oldLocation = location
 
         val bitMapDraw = resources.getDrawable(R.drawable.treasure_box) as BitmapDrawable
         val b = bitMapDraw.bitmap
@@ -295,7 +288,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         MarkerOptions()
                                 .position(coinLocation)
                                 .title(coins[i].value.toString() + " points")
-                               // .snippet(coins[i].description)
+                                // .snippet(coins[i].description)
                                 .icon(BitmapDescriptorFactory.fromBitmap(playerMarker)))
                 // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coinLocation, 14f))
             } else {
@@ -304,10 +297,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 // play the sound
                 sound!!.playHitSound()
 
-                val dialogBuilder= AlertDialog.Builder(this)
+                val dialogBuilder = AlertDialog.Builder(this)
                 dialogBuilder.setTitle("Congratulations!! You Win ${coins[i].value} \$")
 
-                dialogBuilder.setPositiveButton("OK"){ dialogInterface: DialogInterface, i: Int -> }
+                dialogBuilder.setPositiveButton("OK") { dialogInterface: DialogInterface, i: Int -> }
                 dialogBuilder.create().show()
                 //Toast.makeText(this@MapsActivity," congratulations!!! you got ${coins[i].value} points " , Toast.LENGTH_LONG).show()
                 // get the values( the points)
@@ -315,7 +308,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 scoreLabel!!.text = " Score : ${score} "
                 coins[i].changeLocation(location, generate())
                 coins[i].generateValue()
-
 
 
                 //   }
@@ -326,39 +318,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         //send the intent to display the score
         var preferences = getSharedPreferences("PREFS", 0)
         var editor = preferences.edit()
-        editor.putInt("currentScore", score.toInt() )
-        editor.putInt("currentDistance", distance.toInt() )
-        editor.putInt("currentCalories", (distance * 15/320).toInt() )
+        editor.putInt("currentScore", score.toInt())
+        editor.putInt("currentDistance", distance.toInt())
+        editor.putInt("currentCalories", (distance * 15 / 320).toInt())
         editor.putString("date", currentDate.toString())
         editor.apply()
     }
 
 
-
-    fun generate():Double
-    {
+    fun generate(): Double {
         var p = Math.random()
 
         var randomSign = Math.random()
 
-        if(randomSign < 0.5) {
+        if (randomSign < 0.5) {
             p *= -1
         }
 
 
-        return p/200
+        return p / 200
 
     }
 
 
-override
-fun onBackPressed(){
-   // var intent = Intent(applicationContext, HomeMenuActivity::class.java)
-    //startActivity(intent)
-    finish()
+    override
+    fun onBackPressed() {
+        // var intent = Intent(applicationContext, HomeMenuActivity::class.java)
+        //startActivity(intent)
+        finish()
 
-}
-    fun finish(view:View) {
+    }
+
+    fun finish(view: View) {
         startActivity(Intent(applicationContext, HomeMenuActivity::class.java))
     }
 }

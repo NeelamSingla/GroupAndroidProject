@@ -9,6 +9,7 @@ import android.arch.persistence.room.*
 data class Score(@PrimaryKey(autoGenerate = true) val id: Int,
                  val date: String,
                  val score: Int)
+
 @Dao
 interface ScoreDao {
     @Query("SELECT * FROM Score ORDER BY date")
@@ -26,6 +27,7 @@ interface ScoreDao {
     @Delete
     fun deleteScore(score: Score)
 }
+
 @Database(entities = [Score::class], version = 1)
 abstract class ScoreDatabase : RoomDatabase() {
     abstract fun scoreDao(): ScoreDao
@@ -33,6 +35,7 @@ abstract class ScoreDatabase : RoomDatabase() {
 
 class ScoreRepository(application: Application) {
     private val scoreDao: ScoreDao
+
     init {
         val database = Room
                 .databaseBuilder(application,

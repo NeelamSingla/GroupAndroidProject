@@ -23,12 +23,12 @@ class HomeMenuActivity : AppCompatActivity() {
             val intent = Intent(this, MapsActivity::class.java)
             startActivityForResult(intent, ADD_MAP)
         }
-fab_score.setOnClickListener(){
+        fab_score.setOnClickListener() {
 
-    val intent = Intent(this, ScoreActivity::class.java)
-    startActivityForResult(intent, ADD_SCORE)
-}
-        fab_helpbutton.setOnClickListener(){
+            val intent = Intent(this, ScoreActivity::class.java)
+            startActivityForResult(intent, ADD_SCORE)
+        }
+        fab_helpbutton.setOnClickListener() {
 
             val intent = Intent(this, HelpInstructionsActivity::class.java)
             startActivityForResult(intent, ADD_HELP)
@@ -37,15 +37,15 @@ fab_score.setOnClickListener(){
 
 
     override
-    fun onBackPressed(){
-        val dialogBuilder= AlertDialog.Builder(this)
+    fun onBackPressed() {
+        val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setTitle("Are You Sure You Want To Exit?")
         //dialogBuilder.setMessage("Kotlin is awesome")
-        dialogBuilder.setPositiveButton("Yes"){ dialogInterface: DialogInterface, i: Int ->
+        dialogBuilder.setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
             System.exit(0)
         }
-        dialogBuilder.setNegativeButton("No"){ dialogInterface: DialogInterface, i: Int ->
-            Toast.makeText(this,"Press Play ",Toast.LENGTH_SHORT).show()
+        dialogBuilder.setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
+            Toast.makeText(this, "Press Play ", Toast.LENGTH_SHORT).show()
 
         }
 
